@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>友情链接 - {config.webname}</title>
+<meta name="keywords" content="友情链接-powered by angelasp.com" />
+<meta name="description" content="友情链接-powered by angelasp.com"  />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/style.css" />
+<script type="text/javascript" src="{config.webpath}scripts/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="{config.webpath}scripts/jquery/jquery.form.min.js"></script>
+<script type="text/javascript" src="{config.webpath}scripts/jquery/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="{config.webpath}scripts/lhgdialog/lhgdialog.js?skin=idialog"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/base.js"></script>
+<script type="text/javascript">
+$(function(){
+	//初始化表单
+	AjaxInitForm('link_form', 'btnSubmit', 1);
+});
+</script>
+</head>
+<body >
+<!--Header-->
+<!--angelcms{template src="header.html"}-->
+<!--/Header-->
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="innerpg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-innerpg ">
+		<div class="col-main">
+		<div class="main-wrap">
+						<div id='htmlpages' class="block first-block block-article-view">
+				<div class="block-head">
+					<div class="head-inner">
+						<h1 class="title">友情链接</h1>
+					</div>
+				</div>
+	<div class="block-content clearfix">
+		<div class="article-content clearfix">
+   <!--Content-->
+      <div class="line20"></div>
+      <!--Link-->
+      <div class="links">
+        <ul class="img">
+          <!--angelcms{set DataTable imgList=get_link_list(0, "is_image=1")}-->
+          <!--angelcms{loop list1 imgList}-->
+          <li><a target="_blank" href="{list1[site_url]}" title="{list1[title]}"><img src="{list1[img_url]}" width="88" height="31" /></a></li>
+          <!--angelcms{/loop}-->
+        </ul>
+        <ul class="txt">
+          <!--angelcms{set DataTable txtList=get_link_list(0, "is_image=0")}-->
+          <!--angelcms{loop list2 txtList}-->
+          <a target="_blank" href="{list2[site_url]}" title="{list2[title]}">{list2[title]}</a> | 
+          <!--angelcms{/loop}-->
+        </ul>
+      </div>
+      <!--/Link-->
+      <div class="line10"></div>
+     
+      <h3 class="base_tit">申请链接<a name="Add" id="Add"></a></h3>
+      <div class="line10"></div>
+     <form id="link_form" name="link_form" url="{config.webpath}tools/ajax.ashx?action=add">
+     <div class="form_box">
+       <dl>
+         <dt>网站名称：</dt>
+         <dd><input id="txtTitle" name="txtTitle" type="text" class="input txt" datatype="*" sucmsg=" " /><span class="Validform_checktip">*需要申请友情链接的网站标题</span></dd>
+       </dl>
+       
+       <dl>
+         <dt>联系人：</dt>
+         <dd><input id="txtUserName" name="txtUserName" type="text" class="input txt" datatype="*" sucmsg=" " /><span class="Validform_checktip">*该网站联系人的姓名</span></dd>
+       </dl>
+       <dl>
+         <dt>联系电话：</dt>
+         <dd><input id="txtUserTel" name="txtUserTel" type="text" class="input txt" /></dd>
+       </dl>
+       <dl>
+         <dt>电子邮箱：</dt>
+         <dd><input id="txtEmail" name="txtEmail" type="text" class="input txt" /></dd>
+       </dl>
+       <dl>
+         <dt>链接网址：</dt>
+         <dd><input id="txtSiteUrl" name="txtSiteUrl" type="text" class="input txt" datatype="url" sucmsg=" " /><span class="Validform_checktip">*申请友情链接的网址</span></dd>
+       </dl>
+       <dl>
+         <dt>LOGO图片：</dt>
+         <dd><input id="txtImgUrl" name="txtImgUrl" type="text" class="input txt" /><span class="Validform_checktip">网站链接的LOGO图片地址</span></dd>
+       </dl>
+       <dl>
+         <dt>验证码：</dt>
+         <dd>
+           <input id="txtCode" name="txtCode" type="text" class="input small" datatype="*" sucmsg=" " />
+           <a href="javascript:;" onclick="ToggleCode(this, '{config.webpath}tools/verify_code.ashx');return false;"><img src="{config.webpath}tools/verify_code.ashx" width="80" height="22" align="absmiddle" /> 看不清楚？</a>
+           <span class="Validform_checktip"></span>
+         </dd>
+       </dl>
+       <dl>
+         <dt></dt>
+         <dd>
+           <input name="btnSubmit" type="submit" value="申请链接" class="btn_submit" />
+         </dd>
+       </dl>
+     </div>
+     <div class="clear"></div>
+     </form>
+      <!--Content-->  
+
+              </div>
+
+				</div>
+				<div class="block-foot"><div><div>-</div></div></div>
+			</div>
+		</div>
+		</div>
+		<div class="col-sub">
+			<div class="block first-block block-products  list-240" id="block-products-89301" rel="89301">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">栏目导航</h2>
+			<div class="links"><a class="more" href="/products">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+        <!--angelcms{set DataTable contentlist=get_article_list("about", 0, 0, "status=0")}-->
+        <!--angelcms{foreach(DataRow dr in contentlist.Rows)}-->
+        <li><a title="{dr[title]}" href="<!--angelcms{linkurl("content",{dr[call_index]})}-->">{dr[title]}</a></li>
+        <!--angelcms{/foreach}-->
+        <li><a href="<!--angelcms{linkurl("feedback")}-->">留言反馈</a></li>
+        <li><a href="<!--angelcms{linkurl("link")}-->">友情链接</a></li>								
+
+		</ul>    
+		</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block  block-articles  list-240" id="block-articles-89302" rel="89302">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">推荐文章</h2><div class="links"><a class="more" href="/articles">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+
+ <!--angelcms{set DataTable rednews1=get_article_list("news", 0, 6, "status=0 and is_red=1")}-->
+        <!--angelcms{foreach(DataRow dr in rednews1.Rows)}-->
+        <li><a title="{dr[title]}" href="<!--angelcms{linkurl("news_show",{dr[id]})}-->"><!--angelcms{cutstring({dr[title]},29)}--></a></li>
+        <!--angelcms{/foreach}-->
+
+
+			    		</ul>    	</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div>		</div></div>
+	</div>
+	</div>
+</div>
+</div>
+<!--Footer-->
+<!--angelcms{template src="footer.html"}-->
+<!--/Footer-->
+</body>
+</html>

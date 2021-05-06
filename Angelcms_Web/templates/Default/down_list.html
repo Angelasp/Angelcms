@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--angelcms{set string category_title=get_category_title(category_id,"资源下载")}-->
+<title>{category_title} - {config.webname}</title>
+<meta content="{category_title} - {config.webname}-powered by angelasp.com" name="keywords" />
+<meta content="{category_title} - {config.webname}-powered by angelasp.com" name="description" />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/style.css" />
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/lang-chi.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/common.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/overlay.min.js"></script>
+</head>
+<body >
+<!--顶部-->
+<!--Header-->
+<!--angelcms{template src="header.html"}-->
+<!--/Header-->
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="innerpg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-innerpg ">	<div class="col-main">
+		<div class="main-wrap">
+						<div id='articles-list' class="block first-block">
+				<div class="block-head">
+					<div class="head-inner">
+						<h2 class="title">{category_title}</h2>
+						</div>
+				</div>
+				<div class="block-content clearfix">
+	  <ul class="down_list">
+
+        <!--angelcms{set DataTable down_list = get_article_list("down", category_id, page, "status=0", out totalcount, out pagelist, "down_list", category_id, "__id__")}--><!--取得一个分页DataTable-->
+        <!--angelcms{foreach(DataRow dr in down_list.Rows)}-->
+        <li>
+          <a href="<!--angelcms{linkurl("down_show",{dr[id]})}-->" class="pic"><img width="140" height="98" src="{dr[img_url]}" alt="{dr[title]}" /></a>
+          <h2><a href="<!--angelcms{linkurl("down_show",{dr[id]})}-->" title="note">{dr[title]}</a></h2>
+          <div class="info">
+            <span class="time">{dr[add_time]}</span>
+            <span class="comm"><script type="text/javascript" src="{config.webpath}tools/submit_ajax.ashx?action=view_comment_count&id={dr[id]}"></script>人评论</span>
+            <span class="view"><script type="text/javascript" src="{config.webpath}tools/submit_ajax.ashx?action=view_article_click&id={dr[id]}"></script>次浏览</span>
+          </div>
+          <div class="note">{dr[zhaiyao]}</div>
+        </li>
+        <!--angelcms{/foreach}-->
+
+</ul>
+<div class="pager clearfix">
+<div class="list">
+{pagelist}	
+
+</div>
+</div>
+
+
+				</div>
+				<div class="block-foot"><div><div>-</div></div></div>
+			</div>
+			
+		</div>
+		</div>
+		<div class="col-sub">
+			<div class="block first-block block-products  list-240" id="block-products-89305" rel="89305">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">资源分类</h2><div class="links"><a class="more" href="/products">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">								
+        <!--angelcms{set DataTable category_list1=get_category_list("down", 0)}-->
+        <!--angelcms{foreach(DataRow dr in category_list1.Rows)}-->
+        <li><a title="{dr[title]}" href="<!--angelcms{linkurl("down_list",{dr[id]})}-->"><em class="arrow"></em>{dr[title]}</a></li>
+        <!--angelcms{/foreach}-->									
+				</ul>   
+				</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block last-block block-articles  list-240" id="block-articles-89306" rel="89306">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">推荐文章</h2><div class="links"><a class="more" href="/articles">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+ <!--angelcms{set DataTable rednews1=get_article_list("news", 0, 10, "status=0 and is_red=1")}-->
+        <!--angelcms{foreach(DataRow dr in rednews1.Rows)}-->
+        <li><a title="{dr[title]}" href="<!--angelcms{linkurl("news_show",{dr[id]})}-->"><!--angelcms{cutstring({dr[title]},30)}--></a></li>
+        <!--angelcms{/foreach}-->
+          </ul> 
+		  </div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div>		</div></div>
+	</div>
+	</div>
+</div>
+</div>
+
+<!--Footer-->
+<!--angelcms{template src="footer.html"}-->
+<!--/Footer-->
+</body>
+</html>

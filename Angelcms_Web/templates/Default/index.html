@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{config.webtitle}</title>
+<meta content="{config.webkeyword}-powered by angelasp.com" name="keywords" />
+<meta content="{config.webdescription}-powered by angelasp.com" name="description" />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/style.css" />
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/lang-chi.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/common.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/overlay.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/base.js"></script>
+</head>
+<body >
+<!--Header-->
+<!--angelcms{template src="header.html"}-->
+<!--/Header-->
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="homepg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-home three-cols">	<div class="col-main">
+		<div class="main-wrap">
+			<div class="block first-block block-diy list-410" id="block-diy-89295" rel="89295">
+    <div class="block-head">
+	    <div class="head-inner">
+	    	<h2 class="title">关于我们</h2>
+	    	    
+	    </div>
+    </div>
+    <div class="block-content clearfix">
+    	<div class="content-text">
+        <!--angelcms{set DataTable aboutlist=get_article_list("about", 0, 0, "id=1 and status=0")}-->
+        <!--angelcms{foreach(DataRow dr in aboutlist.Rows)}-->
+
+        <!--angelcms{cutstring({dr[content]},380)}-->
+
+        <!--angelcms{/foreach}-->		
+		</div>
+    </div>
+    <div class="block-foot"><div><div></div></div></div>
+ </div><div class="block last-block block-products list-410" id="block-products-89298" rel="89298">
+    <div class="block-head">
+	<div class="head-inner">
+	<h2 class="title">热门产品</h2>
+	<div class="links"><a class="more" href="<!--angelcms{linkurl("products")}-->">更多</a></div> 
+	</div>
+	</div>
+    <div class="block-content clearfix">
+
+<ul class="list-gallery clearfix">
+
+<!--angelcms{set DataTable redproducts=get_article_list("products", 0, 3, "status=0 and is_hot=1")}-->
+<!--angelcms{foreach(DataRow dr in redproducts.Rows)}-->
+<li>
+<div class="thumb">
+<a href="<!--angelcms{linkurl("products_show",{dr[id]})}-->" ><img src="{dr[img_url]}" alt="{dr[title]}" width="100%" /></a></div>
+<div class="des"><p class="default"><a href="<!--angelcms{linkurl("products_show",{dr[id]})}-->" >{dr[title]}</a></p></div>
+</li>
+<!--angelcms{/foreach}-->
+
+</ul>
+    </div>
+    <div class="block-foot"><div><div></div></div></div>
+ </div>		</div>
+	</div>
+	<div class="col-sub">
+   		<div class="block first-block block-products  list-270" id="block-products-89294" rel="89294">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">产品分类</h2><div class="links"><a class="more" href="<!--angelcms{linkurl("products")}-->">更多</a></div>    
+			</div>
+    </div> 
+	<div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+	<!--angelcms{set DataTable category_list1=get_category_child_list("products", 0)}-->
+              <!--angelcms{loop cdr1 category_list1}-->
+			   <li>
+			   <a title="{cdr1[title]}" href="<!--angelcms{linkurl("products_list",{cdr1[id]})}-->">{cdr1[title]}</a>
+			    </li>			    	
+   <!--angelcms{/loop}-->													
+</ul>  
+</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block last-block block-diy list-270" id="block-diy-89297" rel="89297">
+    <div class="block-head">
+	    <div class="head-inner">
+	    	<h2 class="title">联系我们</h2>
+	    </div>
+    </div>
+    <div class="block-content clearfix">
+    	<div class="content-text">
+公司名称：{config.webcompany}<br />
+地址：{config.webaddress}<br />
+电话：{config.webtel}<br />
+邮箱：<a href="mailto:web@aaaa.com">{config.webmail}</a><br />
+</div>
+    </div>
+    <div class="block-foot"><div><div></div></div></div>
+ </div>	</div>
+	<div class="col-extra">
+		<div class="block first-block block-articles  list-250" id="block-articles-89296" rel="89296">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">最新文章</h2><div class="links"><a class="more" href="<!--angelcms{linkurl("news")}-->">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+		
+  <!--angelcms{set DataTable redNews=get_article_list("news", 0, 6, "status=0 and is_red=1")}-->
+  <!--angelcms{loop newsdr1 redNews}-->
+		<li>
+	<a title="{newsdr1[title]}" href="<!--angelcms{linkurl("news_show",{newsdr1[id]})}-->">
+     <!--angelcms{cutstring({newsdr1[title]},30)}-->	
+	</a>
+		</li>	
+        <!--angelcms{/loop}-->												
+</ul>    	
+</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block last-block block-articles  list-250" id="block-articles-89299" rel="89299">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">推荐文章</h2><div class="links"><a class="more" href="<!--angelcms{linkurl("news")}-->">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+        <!--angelcms{set DataTable topNews=get_article_list("news", 0, 4, "status=0 and is_top=1")}-->
+        <!--angelcms{loop newsdr2 topNews}-->
+		<li>
+	<a title="{newsdr2[title]}" href="<!--angelcms{linkurl("news_show",{newsdr2[id]})}-->">  <!--angelcms{cutstring({newsdr2[title]},30)}--></a>
+		</li>	
+        <!--angelcms{/loop}-->
+
+			    		</ul>    	</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div>	</div>
+	<div class="main-layout clearfix">
+		<div class="block first-block block-products list-960" id="block-products-89300" rel="89300">
+	<div class="block-head">
+		<div class="head-inner clearfix">
+			<h2 class="title">最新产品</h2>
+			<div class="links"><a class="more" href="<!--angelcms{linkurl("products")}-->">更多</a></div>		</div>
+	</div>
+	<div class="block-content clearfix">
+		<div class="sys-scroll-left-wrap">
+		<div class="sys-scroll-left" id="sys-scroll-left-89300">
+		<table>
+			<tr>
+				<td id="sys-scroll-left-89300-a" class="sys-scroll-left-a">
+					<table>
+						<tr>
+<!--angelcms{set DataTable descproducts=get_article_list("products", 0, 10, "status=0 and is_red=1", "id desc")}-->
+     <!--angelcms{loop productsdrdesc2 descproducts}-->
+	<td>
+								<div class="thumb">
+									<a href="<!--angelcms{linkurl("products_show",{productsdrdesc2[id]})}-->" title="{productsdrdesc2[title]}"><img src="{productsdrdesc2[img_url]}" alt="{productsdrdesc2[title]}" /></a>
+								</div>
+								<div class="title"><a href="<!--angelcms{linkurl("products_show",{productsdrdesc2[id]})}-->" title="{productsdrdesc2[title]}">{productsdrdesc2[title]}</a></div>										</td>
+<!--angelcms{/loop}-->
+ </tr>      
+					</table>
+				</td>
+				<td id="sys-scroll-left-89300-b" class="sys-scroll-left-b"> </td>
+			</tr>
+		</table>
+		</div>
+		</div>
+		<script type="text/javascript">
+			sysScrollLeft('sys-scroll-left-89300');
+		</script>
+	</div>
+	<div class="block-foot"><div><div></div></div></div>
+</div>	</div>
+</div>
+	</div>
+	</div>
+</div>
+</div>
+
+
+<!--Footer-->
+<!--angelcms{template src="footer.html"}-->
+<!--/Footer-->
+</body>
+</html>

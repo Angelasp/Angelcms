@@ -1,0 +1,427 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Angel工作室新闻站更新V1.3 - 新闻网站 - Angel工作室内容管理系统</title>
+<meta content="Angel工作室新闻站更新V1.3-powered by angelasp.com" name="keywords" />
+<meta content="Angel工作室新闻站更新V1.3-powered by angelasp.com" name="description" />
+<link rel="stylesheet" type="text/css" href="/templates/Default/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/templates/Default/css/style.css" />
+<script type="text/javascript" src="/scripts/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/scripts/lhgdialog/lhgdialog.js?skin=idialog"></script>
+<script type="text/javascript" src="/templates/Default/js/base.js"></script>
+</head>
+<body >
+<!--顶部-->
+<!--Header-->
+<!--顶部-->
+<div id="doc">
+	<div id="hd">
+
+		<div class="clearfix pagetitle">
+			<h1 class="sitename"><a href="http://www.angelasp.com" title="Angel工作室内容管理系统"><img  class="ifixpng" src="/upload/201408/18/201408181404280972.png"  alt="Angel工作室内容管理系统" /></a></h1>
+<div class="language"> 
+<ul id="menu" class="menu">
+      <li><a href="/shopping/cart.html">购物车<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_cart_count"></script>件</a></li>
+ </ul>	
+ <div class="clear"></div>
+<div class="search clearfix">
+      <input id="keywords" name="keywords" class="enter" type="text" x-webkit-speech="" autofocus="" placeholder="输入回车搜索" onkeydown="if(event.keyCode==13){SiteSearch('/search.html', '#keywords');return false};" />
+      <input class="btn" type="button" value="   " onclick="SiteSearch('/search.html', '#keywords');" />
+    <script type="text/javascript">
+        $.ajax({
+            type: "get",
+            url: "/tools/submit_ajax.ashx?action=user_check_login",
+            cache: false,
+            success: function (data) {
+			  var result = $.parseJSON(data);
+                if (result.status == 1) {
+                    $("#menu").append('<li><a href="/user/center/exit.html">退出</a></li>');
+                    $("#menu").append('<li><a href="/user/center/index.html">会员中心</a></li>');
+                } else {
+                    $("#menu").append('<li><a href="/register.html">注册</a></li>');
+                    $("#menu").append('<li><a href="/login.html">登录</a></li>');
+                }
+            }
+        });
+    </script>
+	</div>	
+	
+		</div>
+		</div>
+
+		<div class="clearfix sitenav">
+			<div class="clearfix menu-main">
+<ul id="menuSitenav" class="clearfix">
+      <li class="first-item"><a href="/index.html" class="home">网站首页</a></li>
+      <li><a target="_blank" href="/about.html" target="_self">关于我们</a></li>
+      <li><a href="/news.html" target="_self">新闻资讯</a></li>
+      <li><a href="/products.html" target="_self">公司产品</a></li>
+      <li><a href="/photo.html" target="_self">图片分享</a></li>
+      <li><a href="/down.html" target="_self">资源下载</a></li>
+      <li><a target="_self" href="/feedback.html">留言反馈</a></li>
+      <li><a target="_self" href="/contact.html">联系我们</a></li>
+                </ul>
+				</div>	
+		</div>
+
+
+
+
+	</div>      
+</div>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#banner-inner").width(); //获取焦点图的宽度（显示面积）
+	var len = $("#banner-inner ul li").length; //获取焦点图个数
+	var index = 0;
+	var picTimer;
+
+	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$("#banner-inner").append(btn);
+	$("#banner-inner .btnBg").css("opacity",0.5);
+
+	//为小按钮添加鼠标滑入事件，以显示相应的内容
+	$("#banner-inner .btn span").css("opacity",0.4).mouseover(function() {
+		index = $("#banner-inner .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseover");
+
+	//上一页、下一页按钮透明度处理
+	$("#banner-inner .preNext").css("opacity",0.2).hover(function() {
+		$(this).stop(true,false).animate({"opacity":"0.5"},300);
+	},function() {
+		$(this).stop(true,false).animate({"opacity":"0.2"},300);
+	});
+
+	//上一页按钮
+	$("#banner-inner .pre").click(function() {
+		index -= 1;
+		if(index == -1) {index = len - 1;}
+		showPics(index);
+	});
+
+	//下一页按钮
+	$("#banner-inner .next").click(function() {
+		index += 1;
+		if(index == len) {index = 0;}
+		showPics(index);
+	});
+
+	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+	$("#banner-inner ul").css("width",sWidth * (len));
+	
+	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+	$("#banner-inner").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000); //此4000代表自动播放的间隔，单位：毫秒
+	}).trigger("mouseleave");
+	
+	//显示图片函数，根据接收的index值显示相应的内容
+	function showPics(index) { //普通切换
+		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+		$("#banner-inner ul").stop(true,false).animate({"left":nowLeft},300); //通过animate()调整ul元素滚动到计算出的position
+		//$("#banner-inner .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
+		$("#banner-inner .btn span").stop(true,false).animate({"opacity":"0.4"},300).eq(index).stop(true,false).animate({"opacity":"1"},300); //为当前的按钮切换到选中的效果
+	}
+});
+</script>
+
+<!--banner--> 
+<div id="banner-block">
+	<div class="banner-block-width">
+	<div id="sys-banner">
+	<div id="banner-main" class="banner banner-main">
+   <!--banner start-->
+		<div id="banner-inner">
+			<ul>
+          
+				<li>
+	          <a title="Angel工作室asp.net门锁企业网站管理系统" target="_blank" href="/news/show-25.html"><img src="/upload/201409/07/201409071449241400.jpg" alt="Angel工作室asp.net门锁企业网站管理系统" /></a>			
+				</li>
+        
+				<li>
+	          <a title="国防部网站推出女仪仗兵图辑(高清)" target="_blank" href="/news/show-23.html"><img src="/upload/201409/07/201409071513341123.jpg" alt="国防部网站推出女仪仗兵图辑(高清)" /></a>			
+				</li>
+        
+			</ul>
+		</div><!--banner end-->
+	</div>
+    </div>
+	</div>
+</div>
+<!--end banner-->
+<!--/Header-->
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="innerpg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-innerpg ">
+
+		<div class="col-main">
+		<div class="main-wrap">
+
+			<div id='article-view' class="block first-block block-article-view">
+				<div class="block-head">
+			<div class="head-inner" style="width:auto;background:url('/templates/Default/images/detail_nav.gif')">
+         <h2 class="title" style="color:#ffffff">当前位置：<a href="/index.html" style="color:#ffffff">首页 </a>&gt;&gt;资源下载</h2>		
+					</div>
+				</div>
+
+	<div class="block-content clearfix">
+
+      <div class="meta">
+        <h1 class="meta-tit">Angel工作室新闻站更新V1.3</h1>
+        <p class="meta-info">
+          <span class="time">2014/9/7 21:50:23</span>
+          <span class="comm"><script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_comment_count&id=42"></script>人评论</span>
+          <span class="view"><script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_article_click&id=42&click=1"></script>次浏览</span>
+          分类：新闻网站
+        </p>
+      </div>
+      
+      <div class="entry" style="padding-left:10px">
+        <p>
+	Angel工作室企业新闻门户管理系统全DIV+CSS模板，防注入sql关键字过滤，多浏览器适应，<br />
+完美兼容IE6-IE8,火狐，谷歌等符合标准的浏览器，模板样式集中在一个CSS样式中，<br />
+内容与样式完全分离，方便网站设计人员开发模板与管理。系统较为安全，以设计防注入，<br />
+敏感字符屏蔽。新闻，产品，单页独立关键字设计，提高搜索引擎收录。<br />
+内置IIS测试，双击打启动预览网站，友情提示：因自带的IIS服务不太好使用，最好是放入到空间中进行查看。<br />
+　　<br />
+后台功能简介：
+</p>
+<p>
+	网站基本信息：联系方式、关键字、版权信息等等；放到空间后自己在后台可以修改。
+</p>
+<p>
+	<br />
+首页新闻分类管理
+</p>
+<p>
+	新闻管理：新闻分类管理，添加删除新闻；<br />
+单页管理：无限添加单页；<br />
+人才管理：发布修改招聘信息；<br />
+会员管理：会员发布新闻信息；<br />
+留言管理：管理留言，管理员回复；<br />
+友情链接管理：管理友情链接，支持图片链<br />
+采集功能：后台带采集功能<br />
+防注入：前台sql关键字过滤功能；
+</p>
+<p>
+	<br />
+更新内容：
+</p>
+<p>
+	后台管理地址：admin1/admin_login.asp
+</p>
+<p>
+	后台账户:admin 密码:admin （请一定修改路径和密码，防止入侵）
+</p>
+<p>
+	QQ群号：191376471&nbsp; QQ号：709047174
+</p>
+<p>
+	Angel工作室新闻门户网站管理系统商业版v1.2正式版发布
+</p>
+<p>
+	程序语言：ASP+ACCSEE<br />
+前台模板：DIV+CSS<br />
+授权模式：商业版<br />
+演示地址：站无演示地址<br />
+作者主页：<br />
+<a href="http://hi.baidu.com/angelcms/">http://hi.baidu.com/angelcms/</a><br />
+<a href="http://angelasp.blog.163.com/">http://angelasp.blog.163.com/</a>
+</p>
+<p>
+	系统优势：<br />
+　　全DIV+CSS模板，多浏览器适应，完美兼容IE6-IE8，以及Firefox 谷歌等符合标准的浏览器，模板样式集中在一个CSS文件中，内容与样式完全分离，<br />
+方便网站设计人员开发模板与管理。系统较为安全，以设计防注入，敏感字符屏蔽。新闻，产品，单页独立关键字设计，提高搜索引擎收录。<br />
+　　调试环境必须为IIS，否则无法正常运行。
+</p>
+<p>
+	功能介绍：
+</p>
+<p>
+	产品、新闻增加二级分类，独立关键字设置、针对搜索引擎优化关键字设置、技术支持、等等安全性更高。
+</p>
+<p>
+	2012-08-08<br />
+1、更新后天添加多个管理，以方便有多个管理员管理。<br />
+2、更新前台页面不兼容问题。<br />
+3、更换天气预报不显示问题。<br />
+4、更新后台多个采集模块错误采集修补。
+</p>
+<p>
+	2012-12-20
+</p>
+<p>
+	1、更新编辑器
+</p>
+<p>
+	2、更新后台添加多个管理员无法设置权限问题
+</p>
+<p>
+	3、更新后台可设置浏览权限
+</p>
+<p>
+	4、后台可以修改LOgo
+</p>
+<p>
+	5、新增wap手机访问网站
+</p>
+<p>
+	2014-07-15
+</p>
+<p>
+	1、更新前台风格仿财经新闻网
+</p>
+<p>
+	2、新增后台客服QQ管理，更有利于联系管理员
+</p>
+<p>
+	3、新增QQ绑定登录接口
+</p>
+<p>
+	4、修改后台功能图标，以及编辑器兼容性问题。
+</p>
+      </div>      
+      <!--分享-->
+        <!-- JiaThis Button BEGIN --> 
+  <div id="ckepop">
+      <span class="jiathis_txt">分享到：</span>
+      <a class="jiathis_button_tqq">腾讯微博</a>
+      <a class="jiathis_button_tsina">新浪微博</a>
+      <a class="jiathis_button_renren">人人网</a>
+      <a class="jiathis_button_email">邮件</a>
+      <a class="jiathis_button_fav">收藏夹</a>
+      <a class="jiathis_button_copy">复制网址</a> 
+      <a href="http://www.jiathis.com/share/?uid=1961509" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a> 
+      <a class="jiathis_counter_style"></a> 
+  </div> 
+  <!-- JiaThis Button END -->
+  <script type="text/javascript">var jiathis_config={data_track_clickback:true};</script> 
+  <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1406531936839570" charset="utf-8"></script>
+      <!--/分享-->  
+      <div class="clear"></div>
+      <!--附件列表-->
+      <div class="attach_list">
+        <h3 class="base_tit">附件下载</h3>
+        <ul>
+          
+        </ul>
+      </div>
+      <!--/附件列表-->
+      <div class="line10"></div>
+
+      <!--同类推荐-->
+      <div class="related">
+        <h3 class="base_tit">相关资源</h3>
+        <ul class="txt_list">
+          
+          <div>同类下暂无推荐的资源...</div>
+          
+        </ul>
+      </div>
+      <!--/同类推荐-->
+			</div>
+				<div class="block-foot"><div><div>-</div></div></div>
+			</div>
+		
+      <!--评论-->
+      
+      <!--/评论-->
+
+			</div>
+		</div>
+
+
+		<div class="col-sub">
+			<div class="block first-block block-products  list-240" id="block-products-89305" rel="89305">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">资源类别</h2><div class="links"><a class="more" href="/products">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">								
+        
+        <li><a title="新闻网站" href="/down/15.html">新闻网站</a></li>
+        
+        <li><a title="留言板" href="/down/14.html">留言板</a></li>
+        
+        <li><a title="企业网站" href="/down/13.html">企业网站</a></li>
+        								
+				</ul>   
+				</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block last-block block-articles  list-240" id="block-articles-89306" rel="89306">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">推荐文章</h2><div class="links"><a class="more" href="/articles">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+ 
+        <li><a title="Angel工作室asp.net门锁企业网站管理系统" href="/news/show-25.html">Angel工作室asp.net门锁企业网站管…</a></li>
+        
+        <li><a title="国防部网站推出女仪仗兵图辑(高清)" href="/news/show-23.html">国防部网站推出女仪仗兵图辑(高清…</a></li>
+        
+        <li><a title="俄防长乘专机回国途中 被禁飞波兰和乌克兰领空" href="/news/show-22.html">俄防长乘专机回国途中 被禁飞波兰…</a></li>
+        
+        <li><a title="美军在伊拉克对IS军事行动平均每天花费750万美元" href="/news/show-21.html">美军在伊拉克对IS军事行动平均每天…</a></li>
+        
+        <li><a title="四川:党员干部去世后不得在公共场所搭灵棚" href="/news/show-20.html">四川:党员干部去世后不得在公共场…</a></li>
+        
+        <li><a title="哈尔滨抓获公安部A级逃犯 涉虚开增值税发票18亿" href="/news/show-19.html">哈尔滨抓获公安部A级逃犯 涉虚开增…</a></li>
+        
+        <li><a title="辽宁18人传播“采暖费调整”谣言被查处" href="/news/show-18.html">辽宁18人传播“采暖费调整”谣言被…</a></li>
+        
+        <li><a title="车考腐败黑洞:关关卡拿 小小驾照撂倒车管所20人" href="/news/show-17.html">车考腐败黑洞:关关卡拿 小小驾照撂…</a></li>
+        
+        <li><a title=""昆明小女孩被拐走"为谣言 已在全国流传3个月" href="/news/show-16.html">&quot;昆明小女孩被拐走&quot;为谣…</a></li>
+        
+        <li><a title="云南文山州富宁县公安局警务站处置一起暴力袭警案" href="/news/show-15.html">云南文山州富宁县公安局警务站处置…</a></li>
+        
+          </ul> 
+		  </div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div>		</div></div>
+	</div>
+	</div>
+</div>
+</div>
+
+<!--Footer-->
+<!--底部-->
+<div id="ft">
+	<div class="ft-inner">
+	<div class="ft-menu"  id="ft-menu">
+      <a target="_blank" href="/index.html">网站首页</a>|
+      <a target="_blank" href="/about.html">关于我们</a>|
+      <a target="_blank" href="/news.html">新闻资讯</a>|
+      <a target="_blank" href="/products.html">公司产品</a>|
+      <a target="_blank" href="/down.html">资源下载</a>|
+      <a target="_blank" href="/photo.html">图片分享</a>|
+      <a target="_blank" href="/feedback.html">留言反馈</a>|
+      <a target="_blank" href="/link.html">友情链接</a>|
+      <a target="_blank" href="/contact.html">联系我们</a>
+	</div>
+
+<div class="siteinfo" id="ft-siteinfo">
+  <p>版权所有 Angel工作室 京ICP备备01068681号 版本：V1.0 © Copyright 2009 - 2014. angelasp.com. All Rights Reserved.&nbsp; </p>
+</div>
+
+</div>
+</div>
+<!--/Footer-->
+</body>
+</html>
+

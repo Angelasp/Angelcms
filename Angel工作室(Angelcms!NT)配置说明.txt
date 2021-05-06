@@ -1,0 +1,49 @@
+Angel工作室(Angelcms!NT)V1.1安装配置说明
+
+一、安装环境要求
+开发工具：Microsoft Visual Studio 2010 或者以上版本
+
+服务器操作系统：Windows Server 2000 以上版本
+
+目前支持微软MSSQL/Access数据库：SQL Server 2005 以上版/Access2000以上
+
+IIS信息管理器：IIS 6.0 及以上版本(推荐 IIS7.0)
+
+.NET环境要求：.NET Framework 2.0/3.x
+
+二、安装布置流程
+由于您下载的是Angelcms!NT源码，所以您还需要以下步骤生成网站发布文件方可上传到你的网站空间中
+1、	用Microsoft Visual Studio 2010打开源码中的Angelcms.sln；
+2、	找到Angelcms_Web项目，右击在弹出的菜单中选择“发布”；
+3、	在弹出的对话框中，“发布方法”选择文件系统，“目标位置”选择您要存放本地的目录；
+4、	单击“发布”按扭，生成编译文件，由于部分文件和目录并未包含在项目中，此时需要手动拷贝过来；
+5、	将Angelcms_Web项目下的aspx、upload两个个文件夹拷贝到您本地发布目录。
+6、	通过FTP工具将网站上传到你的空间下即可；
+7、	后台登录地址：http://你的网址/admin/login.aspx，默认管理员帐号：admin，密码：admin 默认的数据库
+8、     如果你未附加数据请先运行安装文件配置新的数据库。
+经过以上步骤，网站安装流程完毕，下一步附加数据库/包括上面提到的安装及更改数据库连接节点
+
+=============mssql版本
+1、	源码Angelcms_Web项目中，有一个名为“App_Data”的文件夹，里面存在的是SQL数据库文件，其中“Angelcms.mdf”是MSSQL2008r2数据库文件，“install\sqlscript\sqlserver”是生成数据库语句，兼容MSSQL2005.
+2、	具体的安装配置数据库请联系我们官方唯一技术QQ：815657032、709047174
+3、	找到网站目录下的“Angeldb.config”文件，找到xml->Dbconnectstring节点，将其更改为：
+  <Dbconnectstring>Data Source=192.168.0.186;User ID=sa;Password=sa;Initial Catalog=Angelcms;Pooling=true</Dbconnectstring>
+  <Dbconnectstring>Data Source=您的数据库IP;User ID=数据库登录用户名;Password=数据库登录密码;Initial Catalog=数据库名称;Pooling=true</Dbconnectstring>
+  如果运行安装程序就省去这些配置的麻烦，直接运行页面修改这些配置信息包括数据可设置自己想要的名称
+
+=============Access版本
+1、     该版Angelcms_Web项目中，有一个名为“App_Data”的文件夹，里面存在的是Access数据库文件，其中Angelcms.mdb为Access数据库文件，如果没有请联系我们。
+
+2、     如果有直接把程序编译好 传入空间直接访问系统首页面即可打开http://你的域名/index.aspx即可看到网站系统，如果进入后台http://你的域名/admin/  账号和密码 默认为admin
+
+3、     看看配置连接文件一般都是配置完成的，不过你可以确认一下代码如下： 
+     <appSettings>标签中添加
+     <add key="OleDbPath" value="~/App_Data/Angelcms.mdb"/>
+  <!-- 数据库连接字符串-->
+  <connectionStrings>
+    <add name="ConnectionString" connectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" />
+  </connectionStrings>
+  <system.web>
+如果技术问题可以联系我们官方：www.angelasp.com
+
+

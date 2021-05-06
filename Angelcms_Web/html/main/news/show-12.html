@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>习近平:把握世界军事发展新趋势 大力推进军事创新 - 国内新闻 - Angel工作室内容管理系统</title>
+<meta content="习近平:把握世界军事发展新趋势 大力推进军事创新-powered by angelasp.com" name="keywords" />
+<meta content="习近平:把握世界军事发展新趋势 大力推进军事创新-powered by angelasp.com" name="description" />
+<link rel="stylesheet" type="text/css" href="/templates/Default/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/templates/Default/css/style.css" />
+<script type="text/javascript" src="/scripts/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/scripts/lhgdialog/lhgdialog.js?skin=idialog"></script>
+<script type="text/javascript" src="/templates/Default/js/base.js"></script>
+</head>
+<body >
+<!--顶部-->
+<!--Header-->
+<!--顶部-->
+<div id="doc">
+	<div id="hd">
+
+		<div class="clearfix pagetitle">
+			<h1 class="sitename"><a href="http://www.angelasp.com" title="Angel工作室内容管理系统"><img  class="ifixpng" src="/upload/201408/18/201408181404280972.png"  alt="Angel工作室内容管理系统" /></a></h1>
+<div class="language"> 
+<ul id="menu" class="menu">
+      <li><a href="/shopping/cart.html">购物车<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_cart_count"></script>件</a></li>
+ </ul>	
+ <div class="clear"></div>
+<div class="search clearfix">
+      <input id="keywords" name="keywords" class="enter" type="text" x-webkit-speech="" autofocus="" placeholder="输入回车搜索" onkeydown="if(event.keyCode==13){SiteSearch('/search.html', '#keywords');return false};" />
+      <input class="btn" type="button" value="   " onclick="SiteSearch('/search.html', '#keywords');" />
+    <script type="text/javascript">
+        $.ajax({
+            type: "get",
+            url: "/tools/submit_ajax.ashx?action=user_check_login",
+            cache: false,
+            success: function (data) {
+			  var result = $.parseJSON(data);
+                if (result.status == 1) {
+                    $("#menu").append('<li><a href="/user/center/exit.html">退出</a></li>');
+                    $("#menu").append('<li><a href="/user/center/index.html">会员中心</a></li>');
+                } else {
+                    $("#menu").append('<li><a href="/register.html">注册</a></li>');
+                    $("#menu").append('<li><a href="/login.html">登录</a></li>');
+                }
+            }
+        });
+    </script>
+	</div>	
+	
+		</div>
+		</div>
+
+		<div class="clearfix sitenav">
+			<div class="clearfix menu-main">
+<ul id="menuSitenav" class="clearfix">
+      <li class="first-item"><a href="/index.html" class="home">网站首页</a></li>
+      <li><a target="_blank" href="/about.html" target="_self">关于我们</a></li>
+      <li><a href="/news.html" target="_self">新闻资讯</a></li>
+      <li><a href="/products.html" target="_self">公司产品</a></li>
+      <li><a href="/photo.html" target="_self">图片分享</a></li>
+      <li><a href="/down.html" target="_self">资源下载</a></li>
+      <li><a target="_self" href="/feedback.html">留言反馈</a></li>
+      <li><a target="_self" href="/contact.html">联系我们</a></li>
+                </ul>
+				</div>	
+		</div>
+
+
+
+
+	</div>      
+</div>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#banner-inner").width(); //获取焦点图的宽度（显示面积）
+	var len = $("#banner-inner ul li").length; //获取焦点图个数
+	var index = 0;
+	var picTimer;
+
+	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$("#banner-inner").append(btn);
+	$("#banner-inner .btnBg").css("opacity",0.5);
+
+	//为小按钮添加鼠标滑入事件，以显示相应的内容
+	$("#banner-inner .btn span").css("opacity",0.4).mouseover(function() {
+		index = $("#banner-inner .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseover");
+
+	//上一页、下一页按钮透明度处理
+	$("#banner-inner .preNext").css("opacity",0.2).hover(function() {
+		$(this).stop(true,false).animate({"opacity":"0.5"},300);
+	},function() {
+		$(this).stop(true,false).animate({"opacity":"0.2"},300);
+	});
+
+	//上一页按钮
+	$("#banner-inner .pre").click(function() {
+		index -= 1;
+		if(index == -1) {index = len - 1;}
+		showPics(index);
+	});
+
+	//下一页按钮
+	$("#banner-inner .next").click(function() {
+		index += 1;
+		if(index == len) {index = 0;}
+		showPics(index);
+	});
+
+	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+	$("#banner-inner ul").css("width",sWidth * (len));
+	
+	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+	$("#banner-inner").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000); //此4000代表自动播放的间隔，单位：毫秒
+	}).trigger("mouseleave");
+	
+	//显示图片函数，根据接收的index值显示相应的内容
+	function showPics(index) { //普通切换
+		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+		$("#banner-inner ul").stop(true,false).animate({"left":nowLeft},300); //通过animate()调整ul元素滚动到计算出的position
+		//$("#banner-inner .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
+		$("#banner-inner .btn span").stop(true,false).animate({"opacity":"0.4"},300).eq(index).stop(true,false).animate({"opacity":"1"},300); //为当前的按钮切换到选中的效果
+	}
+});
+</script>
+
+<!--banner--> 
+<div id="banner-block">
+	<div class="banner-block-width">
+	<div id="sys-banner">
+	<div id="banner-main" class="banner banner-main">
+   <!--banner start-->
+		<div id="banner-inner">
+			<ul>
+          
+				<li>
+	          <a title="Angel工作室asp.net门锁企业网站管理系统" target="_blank" href="/news/show-25.html"><img src="/upload/201409/07/201409071449241400.jpg" alt="Angel工作室asp.net门锁企业网站管理系统" /></a>			
+				</li>
+        
+				<li>
+	          <a title="国防部网站推出女仪仗兵图辑(高清)" target="_blank" href="/news/show-23.html"><img src="/upload/201409/07/201409071513341123.jpg" alt="国防部网站推出女仪仗兵图辑(高清)" /></a>			
+				</li>
+        
+			</ul>
+		</div><!--banner end-->
+	</div>
+    </div>
+	</div>
+</div>
+<!--end banner-->
+<!--/Header-->
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="innerpg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-innerpg ">
+
+		<div class="col-main">
+		<div class="main-wrap">
+
+			<div id='article-view' class="block first-block block-article-view">
+				<div class="block-head">
+			<div class="head-inner" style="width:auto;background:url('/templates/Default/images/detail_nav.gif')">
+         <h2 class="title" style="color:#ffffff">当前位置：<a href="/index.html" style="color:#ffffff">首页 </a>&gt;&gt;<a href="/news.html" style="color:#ffffff">新闻资讯</a></h2>		
+					</div>
+				</div>
+
+				<div class="block-content clearfix">
+					<div class="article-head">
+						<h1 class="title">习近平:把握世界军事发展新趋势 大力推进军事创新</h1>
+						<div class="meta">
+							<span class="item">分类：国内新闻</span>
+							<span class="item">评论：<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_comment_count&id=12"></script>人评论</span>
+							<span class="item">点击：<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_article_click&id=12&click=1"></script>次浏览</span>
+							<span class="item">发布：<span class="grey">2014/8/31 21:38:42</span></span>
+						</div>
+					</div>
+					<div class="article-content clearfix" style="padding-top:20px;">
+				     <p>
+	习近平在中共中央政治局第十七次集体学习时强调
+</p>
+<p>
+	准确把握世界军事发展新趋势 与时俱进大力推进军事创新
+</p>
+<p>
+	新华网北京8月30日电 中共中央政治局8月29日下午就世界军事发展新趋势和推进我军军事创新进行第十七次集体学习。中共中央总书记习近平在主持学习时强调，世界新军事革命对我们既是机遇，也是挑战。我们要登高望远、见微知著，看到世界军事领域发展变化走向，看到世界新军事革命重大影响，形成科学的认识和判断，与时俱进大力推进军事创新，有针对性推进国防和军队建设改革，更好坚持党对军队绝对领导、坚持人民军队根本宗旨，使我军真正担当起党赋予的历史重任。
+</p>
+<p>
+	国防大学战略教研部肖天亮教授就这个问题进行讲解，并谈了意见和建议。
+</p>
+<p>
+	中共中央政治局各位同志认真听取了他的讲解，并就有关问题进行了讨论。
+</p>
+<p>
+	习近平在主持学习时发表了讲话。他强调，中央政治局专门组织一次关于军事问题的集体学习，主要目的是通过研究当今世界军事发展新趋势，分析我军军事创新面对的形势和任务，引起全党对军事问题、国防和军队建设、军事斗争准备的重视，增强搞好国防和军队建设改革的责任感。深入学习研究军事问题，无论是对从中国特色社会主义事业总体布局的角度认识国防和军队建设改革的重要地位与作用，还是对从各个领域各个方面做好关心支持国防和军队建设改革工作，都具有非常重要的意义。
+</p>
+<p>
+	习近平指出，研究军事问题，首先要科学判断世界发展大势，准确把握世界军事发展新趋势。当前，国际形势正处在新的转折点上，各种战略力量加快分化组合，国际体系进入了加速演变和深刻调整的时期。在这个前所未有的大变局中，军事领域发展变化广泛而深刻，是世界大发展、大变革、大调整的重要内容之一。这场军事领域发展变化，以信息化为核心，以军事战略、军事技术、作战思想、作战力量、组织体制和军事管理创新为基本内容，以重塑军事体系为主要目标，正在推动新军事革命深入发展，其速度之快、范围之广、程度之深、影响之大，为第二次世界大战结束以来所罕见。世界军事领域发展变化，与世界政治经济等领域发展变化相互呼应、相互影响。
+</p>
+<p>
+	习近平强调，这场世界新军事革命是全方位、深层次的，覆盖了战争和军队建设全部领域，直接影响着国家的军事实力和综合国力，关乎战略主动权。这场新军事革命，不仅反映在军事科技突飞猛进上，也反映在军事理论不断创新上，还反映在军事制度深刻变革上。
+</p>
+<p>
+	习近平指出，面对世界新军事革命的严峻挑战和难得机遇，只有与时俱进、大力推进军事创新，才能尽快缩小差距、实现新的跨越。我军87年的发展史就是一部创新史。在马克思主义军事理论、中国革命战争和人民军队建设实践、中华传统兵法相结合的过程中，我们党靠不断创新，逐步形成了一整套建军治军的原则和制度，创造了人民战争的战略战术，形成了我军的特有优势。我们比以往任何时候都更加需要继承和发扬军事创新这个优良传统，努力建立起一整套适应信息化战争和履行使命要求的新的军事理论、体制编制、装备体系、战略战术、管理模式。
+</p>
+<p>
+	习近平强调，军事创新任务繁重，需要做的工作很多，在加强总体筹划的同时，应该重点把握以下原则要求。一是要坚持强军目标、积极引领。党在新形势下的强军目标是党中央从全局上对国防和军队建设作出的战略筹划和顶层设计，指明了军事创新的方向、任务、重点，明确了军事创新的实现路径和检验标准。二是要坚持解放思想、转变观念。军事创新同其他领域创新相比，要求更高、难度也更大。面对国家安全稳定遇到的严峻挑战，面对改革中的深层次矛盾和问题，更需要我们的思想观念有一个大的解放，勇于改变机械化战争的思维定势，树立信息化战争的思想观念；改变维护传统安全的思维定势，树立维护国家综合安全和战略利益拓展的思想观念；改变单一军种作战的思维定势，树立诸军兵种一体化联合作战的思想观念；改变固守部门利益的思维定势，树立全军一盘棋、全国一盘棋的思想观念。三是要坚持抓住重点、整体推进。军事创新是个系统工程，需要统筹谋划、协调推进，牵住牛鼻子，抓住主要矛盾和矛盾的主要方面，通过抓重点把整体带动起来。四是要坚持突出特色、自主创新。军事创新也要走中国特色自主创新之路，致力于巩固和扩大我们的优势。
+</p>
+<p>
+	习近平指出，我们的国防是全民的国防，推进国防和军队建设改革是全党全国人民的共同事业。要调动全党全国力量，齐心协力做好工作。要坚定不移走军民融合式创新之路，在更广范围、更高层次、更深程度上把军事创新体系纳入国家创新体系之中，实现两个体系相互兼容同步发展，使军事创新得到强力支持和持续推动。地方各级党委和政府在国防和军队建设改革中负有义不容辞的重要责任，都要以积极主动的精神支持军事创新，为推进国防和军队建设改革作出贡献。
+</p>
+				     </div>
+					<div class="pages2"></div>
+				</div>
+				<div class="block-foot"><div><div>-</div></div></div>
+			</div>
+
+      <!--评论-->
+      
+      <!--/评论-->
+
+			
+			</div>
+		</div>
+
+
+		<div class="col-sub">
+			<div class="block first-block block-products  list-240" id="block-products-89305" rel="89305">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">资讯分类</h2><div class="links"><a class="more" href="/products">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">								
+        
+        <li>
+          <h4><a href="/news/12.html">军事新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/news/11.html">国际新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/news/10.html">公司新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/news/9.html">国内新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        								
+				</ul>   
+				</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block last-block block-articles  list-240" id="block-articles-89306" rel="89306">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">推荐文章</h2><div class="links"><a class="more" href="/articles">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+ 
+        <li><a title="Angel工作室asp.net门锁企业网站管理系统" href="/news/show-25.html">Angel工作室asp.net门锁企业网站管…</a></li>
+        
+        <li><a title="国防部网站推出女仪仗兵图辑(高清)" href="/news/show-23.html">国防部网站推出女仪仗兵图辑(高清…</a></li>
+        
+        <li><a title="俄防长乘专机回国途中 被禁飞波兰和乌克兰领空" href="/news/show-22.html">俄防长乘专机回国途中 被禁飞波兰…</a></li>
+        
+        <li><a title="美军在伊拉克对IS军事行动平均每天花费750万美元" href="/news/show-21.html">美军在伊拉克对IS军事行动平均每天…</a></li>
+        
+        <li><a title="四川:党员干部去世后不得在公共场所搭灵棚" href="/news/show-20.html">四川:党员干部去世后不得在公共场…</a></li>
+        
+        <li><a title="哈尔滨抓获公安部A级逃犯 涉虚开增值税发票18亿" href="/news/show-19.html">哈尔滨抓获公安部A级逃犯 涉虚开增…</a></li>
+        
+        <li><a title="辽宁18人传播“采暖费调整”谣言被查处" href="/news/show-18.html">辽宁18人传播“采暖费调整”谣言被…</a></li>
+        
+        <li><a title="车考腐败黑洞:关关卡拿 小小驾照撂倒车管所20人" href="/news/show-17.html">车考腐败黑洞:关关卡拿 小小驾照撂…</a></li>
+        
+        <li><a title=""昆明小女孩被拐走"为谣言 已在全国流传3个月" href="/news/show-16.html">&quot;昆明小女孩被拐走&quot;为谣…</a></li>
+        
+        <li><a title="云南文山州富宁县公安局警务站处置一起暴力袭警案" href="/news/show-15.html">云南文山州富宁县公安局警务站处置…</a></li>
+        
+          </ul> 
+		  </div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div>		</div></div>
+	</div>
+	</div>
+</div>
+</div>
+
+<!--Footer-->
+<!--底部-->
+<div id="ft">
+	<div class="ft-inner">
+	<div class="ft-menu"  id="ft-menu">
+      <a target="_blank" href="/index.html">网站首页</a>|
+      <a target="_blank" href="/about.html">关于我们</a>|
+      <a target="_blank" href="/news.html">新闻资讯</a>|
+      <a target="_blank" href="/products.html">公司产品</a>|
+      <a target="_blank" href="/down.html">资源下载</a>|
+      <a target="_blank" href="/photo.html">图片分享</a>|
+      <a target="_blank" href="/feedback.html">留言反馈</a>|
+      <a target="_blank" href="/link.html">友情链接</a>|
+      <a target="_blank" href="/contact.html">联系我们</a>
+	</div>
+
+<div class="siteinfo" id="ft-siteinfo">
+  <p>版权所有 Angel工作室 京ICP备备01068681号 版本：V1.0 © Copyright 2009 - 2014. angelasp.com. All Rights Reserved.&nbsp; </p>
+</div>
+
+</div>
+</div>
+<!--/Footer-->
+</body>
+</html>
+

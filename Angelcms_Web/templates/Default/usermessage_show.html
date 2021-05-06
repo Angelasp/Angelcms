@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>查看站内短信息 - {config.webname}</title>
+<meta content="{config.webkeyword}" name="keywords" />
+<meta content="{config.webdescription}" name="description" />
+
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/style.css" />
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/lang-chi.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/common.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/overlay.min.js"></script>
+<link rel="stylesheet" href="{config.webpath}css/pagination.css" />
+<script type="text/javascript" src="{config.webpath}scripts/lhgdialog/lhgdialog.js?skin=idialog"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/base.js"></script>
+<script type="text/javascript">
+	function ExecPostBack(checkValue) {
+		ExecDelete('{config.webpath}tools/submit_ajax.ashx?action=user_message_delete',checkValue);
+    }
+</script>
+</head>
+<body >
+<!--Header-->
+<!--angelcms{template src="header.html"}-->
+<!--/Header-->
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="innerpg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-innerpg ">
+		<div class="col-main">
+		<div class="main-wrap">
+		<div id='htmlpages' class="block first-block block-article-view">
+<div class="block-head">
+	<div class="head-inner">
+	<h1 class="title"><span><a href="<!--angelcms{linkurl("usercenter","index")}-->">管理首页</a></span>
+      站内短信
+      <strong>Message</strong></h1>
+	</div>
+</div>
+    <!--会员中心-->
+<div class="block-content clearfix">
+	<div class="article-content clearfix" style="padding-top:10px;">
+    <div class="tab_head">
+      <a class="add" href="<!--angelcms{linkurl("usermessage","add")}-->">+ 写新消息</a>
+      <ul class="tabs">
+        <!--angelcms{if(model.type==2)}-->
+        <li class="selected"><a href="<!--angelcms{linkurl("usermessage","accept")}-->">收件箱</a></li>
+        <!--angelcms{else}-->
+        <li><a href="<!--angelcms{linkurl("usermessage","accept")}-->">收件箱</a></li>
+        <!--angelcms{/if}-->
+        <!--angelcms{if(model.type==1)}-->
+        <li class="selected"><a href="<!--angelcms{linkurl("usermessage","system")}-->">系统消息</a></li>
+        <!--angelcms{else}-->
+        <li><a href="<!--angelcms{linkurl("usermessage","system")}-->">系统消息</a></li>
+        <!--angelcms{/if}-->
+        <!--angelcms{if(model.type==3)}-->
+        <li class="selected"><a href="<!--angelcms{linkurl("usermessage","send")}-->">发件箱</a></li>
+        <!--angelcms{else}-->
+        <li><a href="<!--angelcms{linkurl("usermessage","send")}-->">发件箱</a></li>
+        <!--angelcms{/if}-->
+      </ul>
+    </div>
+    <div class="line10"></div>
+    <div class="ntitle">
+      <h1 class="ntitle-tit">{model.title}</h1>
+      <p class="ntitle-info">
+          <span class="time">{model.post_time}</span>
+          <!--angelcms{if(model.type==2)}-->
+          发件人：{model.post_user_name}&nbsp;&nbsp;&nbsp;
+          <!--angelcms{else if(model.type==3)}-->
+          收件人：{model.accept_user_name}&nbsp;&nbsp;&nbsp;
+          <!--angelcms{/if}-->
+      </p>
+    </div>
+    <div class="entry">
+      {model.content}
+    </div>
+
+</div></div>
+    <!--会员中心-->
+  <div class="clear"></div>
+		<div class="block-foot"><div><div>-</div></div></div>
+			</div>
+		</div>
+		</div>
+		<div class="col-sub">
+   <div class="block first-block block-products  list-240" id="block-products-89301" rel="89301"> 
+   <!--UserCenter navtion-->
+    <!--angelcms{template src="ucenter_nav.html"}-->
+    <!--UserCenter navtion-->
+    <div class="block-foot">
+	<div><div>-</div></div></div>
+	</div>
+	
+
+	</div>
+	
+	</div>
+	</div>
+	</div>
+</div>
+</div>
+<!--Footer-->
+<!--angelcms{template src="footer.html"}-->
+<!--/Footer-->
+</body>
+</html>

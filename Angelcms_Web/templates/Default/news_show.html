@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--angelcms{set string category_title=get_category_title(model.category_id,"新闻资讯")}-->
+<title>{model.title} - {category_title} - {config.webname}</title>
+<meta content="{model.seo_keywords}-powered by angelasp.com" name="keywords" />
+<meta content="{model.seo_description}-powered by angelasp.com" name="description" />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/style.css" />
+<script type="text/javascript" src="{config.webpath}scripts/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="{config.webpath}scripts/lhgdialog/lhgdialog.js?skin=idialog"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/base.js"></script>
+</head>
+<body >
+<!--顶部-->
+<!--Header-->
+<!--angelcms{template src="header.html"}-->
+<!--/Header-->
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="innerpg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-innerpg ">
+
+		<div class="col-main">
+		<div class="main-wrap">
+
+			<div id='article-view' class="block first-block block-article-view">
+				<div class="block-head">
+			<div class="head-inner" style="width:auto;background:url('<!--angelcms{templateskin}-->/images/detail_nav.gif')">
+         <h2 class="title" style="color:#ffffff">当前位置：<a href="<!--angelcms{linkurl("index")}-->" style="color:#ffffff">首页 </a>&gt;&gt;<a href="<!--angelcms{linkurl("news")}-->" style="color:#ffffff">新闻资讯</a></h2>		
+					</div>
+				</div>
+
+				<div class="block-content clearfix">
+					<div class="article-head">
+						<h1 class="title">{model.title}</h1>
+						<div class="meta">
+							<span class="item">分类：{category_title}</span>
+							<span class="item">评论：<script type="text/javascript" src="{config.webpath}tools/submit_ajax.ashx?action=view_comment_count&id={model.id}"></script>人评论</span>
+							<span class="item">点击：<script type="text/javascript" src="{config.webpath}tools/submit_ajax.ashx?action=view_article_click&id={model.id}&click=1"></script>次浏览</span>
+							<span class="item">发布：<span class="grey">{model.add_time}</span></span>
+						</div>
+					</div>
+					<div class="article-content clearfix" style="padding-top:20px;">
+				     {model.content}
+				     </div>
+					<div class="pages2"></div>
+				</div>
+				<div class="block-foot"><div><div>-</div></div></div>
+			</div>
+
+      <!--评论-->
+      <!--angelcms{if(model.is_msg==1)}-->
+      <!--angelcms{template src="comment_box.html"}-->
+      <!--angelcms{/if}-->
+      <!--/评论-->
+
+			
+			</div>
+		</div>
+
+
+		<div class="col-sub">
+			<div class="block first-block block-products  list-240" id="block-products-89305" rel="89305">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">资讯分类</h2><div class="links"><a class="more" href="/products">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">								
+        <!--angelcms{set DataTable category_list1=get_category_child_list("news", 0)}-->
+        <!--angelcms{loop cdr1 category_list1}-->
+        <li>
+          <h4><a href="<!--angelcms{linkurl("news_list",{cdr1[id]})}-->">{cdr1[title]}</a></h4>
+          <div class="list">
+            <!--angelcms{set DataTable category_list2=get_category_child_list("news", {strtoint({cdr1[id]})})}-->
+            <!--angelcms{loop cdr2 category_list2}-->
+            <!--angelcms{if({strtoint({cdr2[id]})}=={model.category_id})}-->
+            <a href="<!--angelcms{linkurl("news_list",{cdr2[id]})}-->" class="current">{cdr2[title]}</a>
+            <!--angelcms{else}-->
+            <a href="<!--angelcms{linkurl("news_list",{cdr2[id]})}-->">{cdr2[title]}</a>
+            <!--angelcms{/if}-->
+            <!--angelcms{/loop}-->
+          </div>
+        </li>
+        <!--angelcms{/loop}-->								
+				</ul>   
+				</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block last-block block-articles  list-240" id="block-articles-89306" rel="89306">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">推荐文章</h2><div class="links"><a class="more" href="/articles">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+ <!--angelcms{set DataTable rednews1=get_article_list("news", 0, 10, "status=0 and is_red=1")}-->
+        <!--angelcms{foreach(DataRow dr in rednews1.Rows)}-->
+        <li><a title="{dr[title]}" href="<!--angelcms{linkurl("news_show",{dr[id]})}-->"><!--angelcms{cutstring({dr[title]},30)}--></a></li>
+        <!--angelcms{/foreach}-->
+          </ul> 
+		  </div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div>		</div></div>
+	</div>
+	</div>
+</div>
+</div>
+
+<!--Footer-->
+<!--angelcms{template src="footer.html"}-->
+<!--/Footer-->
+</body>
+</html>

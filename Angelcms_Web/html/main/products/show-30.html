@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>小米（MI）7.9英寸平板 WIFI 64GB - 平板电脑 - Angel工作室内容管理系统</title>
+<meta content="小米（MI）7.9英寸平板 WIFI 64GB-powered by angelasp.com" name="keywords" />
+<meta content="小米（MI）7.9英寸平板 WIFI 64GB-powered by angelasp.com" name="description" />
+<link rel="stylesheet" type="text/css" href="/templates/Default/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/templates/Default/css/style.css" />
+<script type="text/javascript" src="/templates/Default/js/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="/templates/Default/js/lang-chi.min.js"></script>
+<script type="text/javascript" src="/templates/Default/js/common.min.js"></script>
+<script type="text/javascript" src="/templates/Default/js/overlay.min.js"></script>
+
+<script type="text/javascript" src="/scripts/jquery/jquery.jqzoom.js"></script>
+<script type="text/javascript" src="/templates/Default/js/base.js"></script>
+<script type="text/javascript" src="/templates/Default/js/picture.js"></script>
+<script type="text/javascript" src="/templates/Default/js/cart.js"></script>
+<script type="text/javascript">
+	$(function(){
+		tabs('#productsTabs','click');
+		//智能浮动层
+		$("#tab_head").smartFloat();
+	});
+</script>
+
+</head>
+<body >
+<!--顶部-->
+<!--Header-->
+<!--顶部-->
+<div id="doc">
+	<div id="hd">
+
+		<div class="clearfix pagetitle">
+			<h1 class="sitename"><a href="http://www.angelasp.com" title="Angel工作室内容管理系统"><img  class="ifixpng" src="/upload/201408/18/201408181404280972.png"  alt="Angel工作室内容管理系统" /></a></h1>
+<div class="language"> 
+<ul id="menu" class="menu">
+      <li><a href="/shopping/cart.html">购物车<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_cart_count"></script>件</a></li>
+ </ul>	
+ <div class="clear"></div>
+<div class="search clearfix">
+      <input id="keywords" name="keywords" class="enter" type="text" x-webkit-speech="" autofocus="" placeholder="输入回车搜索" onkeydown="if(event.keyCode==13){SiteSearch('/search.html', '#keywords');return false};" />
+      <input class="btn" type="button" value="   " onclick="SiteSearch('/search.html', '#keywords');" />
+    <script type="text/javascript">
+        $.ajax({
+            type: "get",
+            url: "/tools/submit_ajax.ashx?action=user_check_login",
+            cache: false,
+            success: function (data) {
+			  var result = $.parseJSON(data);
+                if (result.status == 1) {
+                    $("#menu").append('<li><a href="/user/center/exit.html">退出</a></li>');
+                    $("#menu").append('<li><a href="/user/center/index.html">会员中心</a></li>');
+                } else {
+                    $("#menu").append('<li><a href="/register.html">注册</a></li>');
+                    $("#menu").append('<li><a href="/login.html">登录</a></li>');
+                }
+            }
+        });
+    </script>
+	</div>	
+	
+		</div>
+		</div>
+
+		<div class="clearfix sitenav">
+			<div class="clearfix menu-main">
+<ul id="menuSitenav" class="clearfix">
+      <li class="first-item"><a href="/index.html" class="home">网站首页</a></li>
+      <li><a target="_blank" href="/about.html" target="_self">关于我们</a></li>
+      <li><a href="/news.html" target="_self">新闻资讯</a></li>
+      <li><a href="/products.html" target="_self">公司产品</a></li>
+      <li><a href="/photo.html" target="_self">图片分享</a></li>
+      <li><a href="/down.html" target="_self">资源下载</a></li>
+      <li><a target="_self" href="/feedback.html">留言反馈</a></li>
+      <li><a target="_self" href="/contact.html">联系我们</a></li>
+                </ul>
+				</div>	
+		</div>
+
+
+
+
+	</div>      
+</div>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#banner-inner").width(); //获取焦点图的宽度（显示面积）
+	var len = $("#banner-inner ul li").length; //获取焦点图个数
+	var index = 0;
+	var picTimer;
+
+	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$("#banner-inner").append(btn);
+	$("#banner-inner .btnBg").css("opacity",0.5);
+
+	//为小按钮添加鼠标滑入事件，以显示相应的内容
+	$("#banner-inner .btn span").css("opacity",0.4).mouseover(function() {
+		index = $("#banner-inner .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseover");
+
+	//上一页、下一页按钮透明度处理
+	$("#banner-inner .preNext").css("opacity",0.2).hover(function() {
+		$(this).stop(true,false).animate({"opacity":"0.5"},300);
+	},function() {
+		$(this).stop(true,false).animate({"opacity":"0.2"},300);
+	});
+
+	//上一页按钮
+	$("#banner-inner .pre").click(function() {
+		index -= 1;
+		if(index == -1) {index = len - 1;}
+		showPics(index);
+	});
+
+	//下一页按钮
+	$("#banner-inner .next").click(function() {
+		index += 1;
+		if(index == len) {index = 0;}
+		showPics(index);
+	});
+
+	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+	$("#banner-inner ul").css("width",sWidth * (len));
+	
+	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+	$("#banner-inner").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000); //此4000代表自动播放的间隔，单位：毫秒
+	}).trigger("mouseleave");
+	
+	//显示图片函数，根据接收的index值显示相应的内容
+	function showPics(index) { //普通切换
+		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+		$("#banner-inner ul").stop(true,false).animate({"left":nowLeft},300); //通过animate()调整ul元素滚动到计算出的position
+		//$("#banner-inner .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
+		$("#banner-inner .btn span").stop(true,false).animate({"opacity":"0.4"},300).eq(index).stop(true,false).animate({"opacity":"1"},300); //为当前的按钮切换到选中的效果
+	}
+});
+</script>
+
+<!--banner--> 
+<div id="banner-block">
+	<div class="banner-block-width">
+	<div id="sys-banner">
+	<div id="banner-main" class="banner banner-main">
+   <!--banner start-->
+		<div id="banner-inner">
+			<ul>
+          
+				<li>
+	          <a title="Angel工作室asp.net门锁企业网站管理系统" target="_blank" href="/news/show-25.html"><img src="/upload/201409/07/201409071449241400.jpg" alt="Angel工作室asp.net门锁企业网站管理系统" /></a>			
+				</li>
+        
+				<li>
+	          <a title="国防部网站推出女仪仗兵图辑(高清)" target="_blank" href="/news/show-23.html"><img src="/upload/201409/07/201409071513341123.jpg" alt="国防部网站推出女仪仗兵图辑(高清)" /></a>			
+				</li>
+        
+			</ul>
+		</div><!--banner end-->
+	</div>
+    </div>
+	</div>
+</div>
+<!--end banner-->
+<!--/Header-->
+
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="innerpg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-innerpg ">	<div class="col-main">
+		<div class="main-wrap">
+						<div id='articles-list' class="block first-block">
+				<div class="block-head">
+			<div class="head-inner" style="width:auto;background:url('/templates/Default/images/detail_nav.gif')">
+			
+         <h2 class="title" style="color:#ffffff">当前位置：<a href="">首页 </a>&gt;<a href="">购买产品</a>&nbsp;&gt;&nbsp;<a href="/products/4/1.html">电脑</a>&nbsp;&gt;&nbsp;<a href="/products/8/1.html">平板电脑</a></h2>
+					</div>
+				</div>
+<div class="block-content clearfix">
+
+   <!--product deatail-->
+      <!--商品图片-->
+      <div class="left294">
+        <!--幻灯片开始-->
+        <div class="pictureDIV">
+          <div id="preview" class="spec-preview">
+            <span class="jqzoom"><img /></span>
+          </div>
+          <!--缩图开始-->
+          <div class="spec-scroll">
+            <a class="prev">&lt;</a>
+            <a class="next">&gt;</a>
+            <div class="items">
+              <ul>
+                
+                <li><img bimg="/upload/201409/07/201409071724377077.jpg" src="/upload/201409/07/thumb_201409071724377077.jpg" onmousemove="preview(this);" /></li>
+                
+                <li><img bimg="/upload/201409/07/201409071724379459.jpg" src="/upload/201409/07/thumb_201409071724379459.jpg" onmousemove="preview(this);" /></li>
+                
+                <li><img bimg="/upload/201409/07/201409071724381590.jpg" src="/upload/201409/07/thumb_201409071724381590.jpg" onmousemove="preview(this);" /></li>
+                
+              </ul>
+            </div>
+          </div>
+          <!--缩图结束-->
+        </div>
+        <!--幻灯片结束-->
+      </div>
+       <!--/商品图片-->
+      
+      <!--商品属性-->
+      <div class="pro-attr right356">
+        <h1>小米（MI）7.9英寸平板 WIFI 64GB</h1>
+        <div class="pro-items">
+          <dl>
+            <dt>商品货号：</dt>
+            <dd></dd>
+          </dl>
+          <dl>
+            <dt>库存情况：</dt>
+            <dd>0件</dd>
+          </dl>
+          <dl>
+            <dt>销售价格：</dt>
+            <dd><b class="red">￥2000.00</b></dd>
+          </dl>
+          <dl>
+            <dt>会员价格：</dt>
+            <dd>
+              
+              登录可见
+              
+            </dd>
+          </dl>
+          <dl>
+            <dt>上架时间：</dt>
+            <dd>2014/9/7 17:25:55</dd>
+          </dl>
+        </div>
+        <div class="pro-btns">
+		  <div class="input-box">
+              购买数量：<input name="goods_id" id="goods_id" type="hidden" value="30" /><input type="text" name="goods_quantity" id="goods_quantity" value="1" class="txt" style="ime-mode:disabled" />
+          </div>
+          <div class="btn-box">
+            
+            <a title="该商品供货紧张，无法加入购物车" class="add-over">加入购物车</a>
+            <a title="该商品供货紧张，无法立即购买" class="buy-over">立即购买</a>
+            
+          </div>
+          
+        </div>
+        <div class="line10"></div>
+      </div>
+      <!--/商品属性-->
+      
+      <div class="line20"></div>
+      <!--商品介绍-->
+      <div id="productsTabs">
+        <div id="tab_head" class="pro-tabs">
+          <ul>
+            <li><a class="current" href="javascript:;">商品介绍</a></li>
+            <li><a href="javascript:;">商品评论</a></li>
+          </ul>
+        </div>
+        <div class="line10"></div>
+        <div class="tab_inner entry" style="display:block;">
+          <p>
+	<img alt="" src="/upload/201409/07/201409071725333202.jpg" /> 
+</p>
+<img alt="" src="/upload/201409/07/201409071725466027.jpg" /> 
+<p>
+	&nbsp;
+</p>
+          <div class="line10"></div>
+        </div>
+
+        <div class="tab_inner">
+          <!--评论-->
+          
+          <!--/评论-->
+        </div>
+        
+      </div>
+      <!--/商品介绍-->
+      
+      <!--同类推荐-->
+      <div class="related">
+        <h3 class="base_tit">本类推荐</h3>
+        <ul class="img_list">
+          
+          <li><a title="华为 P6-C00 电信3G手机（白色） CDMA2000/GSM 双卡双待双通" href="/products/show-40.html"><img alt="华为 P6-C00 电信3G手机（白色） CDMA2000/GSM 双卡双待双通" src="/upload/201409/07/201409072012181723.jpg"><span>华为 P6-C00 电信3G手机（白色…</span></a></li>
+           
+          <li><a title="苹果（APPLE）iPhone 5s 16G版 3G手机（深空灰色）WCDMA/GSM" href="/products/show-39.html"><img alt="苹果（APPLE）iPhone 5s 16G版 3G手机（深空灰色）WCDMA/GSM" src="/upload/201409/07/201409071937198625.jpg"><span>苹果（APPLE）iPhone 5s 16G版…</span></a></li>
+           
+          <li><a title="苹果（APPLE）iPhone 5c 8G版 4G手机" href="/products/show-38.html"><img alt="苹果（APPLE）iPhone 5c 8G版 4G手机" src="/upload/201409/07/201409071931045563.jpg"><span>苹果（APPLE）iPhone 5c 8G版…</span></a></li>
+           
+          <li><a title="荣耀 6 （白色） 联通版 4G手机 TD-LTE/WCDMA/GSM 双卡双待 （套装版）" href="/products/show-37.html"><img alt="荣耀 6 （白色） 联通版 4G手机 TD-LTE/WCDMA/GSM 双卡双待 （套装版）" src="/upload/201409/07/201409071916594519.jpg"><span>荣耀 6 （白色） 联通版 4G手…</span></a></li>
+           
+          <li><a title="华为 荣耀 3X pro （白色）3G手机 TD-SCDMA/WCDMA/GSM 双卡双待" href="/products/show-36.html"><img alt="华为 荣耀 3X pro （白色）3G手机 TD-SCDMA/WCDMA/GSM 双卡双待" src="/upload/201409/07/201409071910179622.jpg"><span>华为 荣耀 3X pro （白色）3G…</span></a></li>
+           
+          <li><a title="卡西欧（CASIO） EX-TR350S 单机版 绿色" href="/products/show-35.html"><img alt="卡西欧（CASIO） EX-TR350S 单机版 绿色" src="/upload/201409/07/201409071856363390.jpg"><span>卡西欧（CASIO） EX-TR350S 单…</span></a></li>
+           
+          <li><a title="爱普生（Epson）ME-10 学习型打印机（打印）" href="/products/show-34.html"><img alt="爱普生（Epson）ME-10 学习型打印机（打印）" src="/upload/201409/07/201409071845262538.jpg"><span>爱普生（Epson）ME-10 学习型…</span></a></li>
+           
+          <li><a title="索尼（SONY） RX100 M3 黑卡数码相机" href="/products/show-33.html"><img alt="索尼（SONY） RX100 M3 黑卡数码相机" src="/upload/201409/07/201409071837245142.jpg"><span>索尼（SONY） RX100 M3 黑卡数…</span></a></li>
+           
+          <li><a title="惠普（HP） LaserJet Pro 1025 彩色激光打印机" href="/products/show-32.html"><img alt="惠普（HP） LaserJet Pro 1025 彩色激光打印机" src="/upload/201409/07/201409071824261723.jpg"><span>惠普（HP） LaserJet Pro 102…</span></a></li>
+           
+          <li><a title="三星（SAMSUNG） NX300 微型单电套机 （18mm-55mm） 白色" href="/products/show-31.html"><img alt="三星（SAMSUNG） NX300 微型单电套机 （18mm-55mm） 白色" src="/upload/201409/07/201409071758342196.jpg"><span>三星（SAMSUNG） NX300 微型单…</span></a></li>
+           
+        </ul>
+      </div>
+      <!--/同类推荐-->
+    <!--/product deatail-->
+	  </div>
+
+			<div class="block-foot"><div><div>-</div></div></div>
+			</div>
+			
+		</div>
+		</div>
+		<div class="col-sub">
+			<div class="block first-block block-products  list-240" id="block-products-89305" rel="89305">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">产品分类</h2><div class="links"><a class="more" href="/products.html">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">								
+        
+        <li>
+          <h4><a href="/products/5.html">办公</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/products/4.html">电脑</a></h4>
+          <div class="list">
+            
+            <a href="/products/8.html">平板电脑</a>
+            
+            <a href="/products/7.html">笔记本</a>
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/products/3.html">数码</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/products/2.html">手机</a></h4>
+          <div class="list">
+            
+            <a href="/products/16.html">华为</a>
+            
+            <a href="/products/6.html">苹果APPLE</a>
+            
+          </div>
+        </li>
+        									
+				</ul>   
+				</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block last-block block-articles  list-240" id="block-articles-89306" rel="89306">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">推荐文章</h2><div class="links"><a class="more" href="/articles">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+ 
+        <li><a title="Angel工作室asp.net门锁企业网站管理系统" href="/news/show-25.html">Angel工作室asp.net门锁企业网站管…</a></li>
+        
+        <li><a title="国防部网站推出女仪仗兵图辑(高清)" href="/news/show-23.html">国防部网站推出女仪仗兵图辑(高清…</a></li>
+        
+        <li><a title="俄防长乘专机回国途中 被禁飞波兰和乌克兰领空" href="/news/show-22.html">俄防长乘专机回国途中 被禁飞波兰…</a></li>
+        
+        <li><a title="美军在伊拉克对IS军事行动平均每天花费750万美元" href="/news/show-21.html">美军在伊拉克对IS军事行动平均每天…</a></li>
+        
+        <li><a title="四川:党员干部去世后不得在公共场所搭灵棚" href="/news/show-20.html">四川:党员干部去世后不得在公共场…</a></li>
+        
+        <li><a title="哈尔滨抓获公安部A级逃犯 涉虚开增值税发票18亿" href="/news/show-19.html">哈尔滨抓获公安部A级逃犯 涉虚开增…</a></li>
+        
+        <li><a title="辽宁18人传播“采暖费调整”谣言被查处" href="/news/show-18.html">辽宁18人传播“采暖费调整”谣言被…</a></li>
+        
+        <li><a title="车考腐败黑洞:关关卡拿 小小驾照撂倒车管所20人" href="/news/show-17.html">车考腐败黑洞:关关卡拿 小小驾照撂…</a></li>
+        
+        <li><a title=""昆明小女孩被拐走"为谣言 已在全国流传3个月" href="/news/show-16.html">&quot;昆明小女孩被拐走&quot;为谣…</a></li>
+        
+        <li><a title="云南文山州富宁县公安局警务站处置一起暴力袭警案" href="/news/show-15.html">云南文山州富宁县公安局警务站处置…</a></li>
+        
+          </ul> 
+		  </div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div>		</div></div>
+	</div>
+	</div>
+</div>
+</div>
+
+<!--Footer-->
+<!--底部-->
+<div id="ft">
+	<div class="ft-inner">
+	<div class="ft-menu"  id="ft-menu">
+      <a target="_blank" href="/index.html">网站首页</a>|
+      <a target="_blank" href="/about.html">关于我们</a>|
+      <a target="_blank" href="/news.html">新闻资讯</a>|
+      <a target="_blank" href="/products.html">公司产品</a>|
+      <a target="_blank" href="/down.html">资源下载</a>|
+      <a target="_blank" href="/photo.html">图片分享</a>|
+      <a target="_blank" href="/feedback.html">留言反馈</a>|
+      <a target="_blank" href="/link.html">友情链接</a>|
+      <a target="_blank" href="/contact.html">联系我们</a>
+	</div>
+
+<div class="siteinfo" id="ft-siteinfo">
+  <p>版权所有 Angel工作室 京ICP备备01068681号 版本：V1.0 © Copyright 2009 - 2014. angelasp.com. All Rights Reserved.&nbsp; </p>
+</div>
+
+</div>
+</div>
+<!--/Footer-->
+</body>
+</html>
+

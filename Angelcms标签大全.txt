@@ -1,0 +1,83 @@
+ 一、网站系统通用标签： 
+{config.webname}      网站名称 
+
+{config.weburl}       网站网址
+
+{config.weblogo}      网站Logo
+
+{config.webcompany}   公司名册
+
+{config.webaddress}   公司地址
+
+{config.webtel}       公司电话
+
+{config.webfax}       公司传真
+
+{config.webmail}      网站邮箱
+
+{config.webcrod}      统计代码
+
+{config.webtitle}     网站标题
+
+{config.webkeyword}   网站关键字
+
+{config.webdescription}   描述
+
+{config.webcopyright}     版权
+
+{config.webpath}          按照路径
+
+{config.webmanagepath}    管理路径
+
+二、常用内容标签：
+
+
+//获取内容单页面
+<!--angelcms{set DataTable contentlist=get_article_list("content", 0, 0, "id=3 and status=0")}-->
+<!--angelcms{foreach(DataRow dr in contentlist.Rows)}-->
+ {dr[content]}
+<!--angelcms{/foreach}-->
+
+//获取产品 用foreach遍历
+<!--angelcms{set DataTable redproducts=get_article_list("products", 0, 3, "status=0 and is_hot=1")}-->
+<!--angelcms{foreach(DataRow dr in redproducts.Rows)}-->
+
+<!--angelcms{linkurl("products_show",{dr[id]})}-->   产品连接
+{dr[title]}                                          产品名称
+
+<!--angelcms{/foreach}-->
+
+
+//获取新闻 用loop循环
+  <!--angelcms{set DataTable redNews=get_article_list("news", 0, 6, "status=0 and is_red=1")}-->
+  <!--angelcms{loop newsdr1 redNews}-->
+
+<!--angelcms{linkurl("news_show",{newsdr1[id]})}-->   新闻连接
+newsdr1[title]     标题 还可以用cutstring字符截取的方法	
+<!--angelcms{/loop}-->		
+
+
+
+//连接标签
+<!--angelcms{linkurl("news")}-->      新闻资讯
+<!--angelcms{linkurl("products")}-->  产品中心
+<!--angelcms{linkurl("photo")}-->     图片分享
+<!--angelcms{linkurl("down")}-->      资源下载
+<!--angelcms{linkurl("feedback")}-->  留言反馈
+
+//友情链接
+//图片链接
+<!--angelcms{set DataTable imgList=get_link_list(0, "is_image=1")}-->
+<!--angelcms{loop list1 imgList}-->
+{list1[site_url]}            链接地址
+{list1[img_url]}             图片链接
+<!--angelcms{/loop}-->
+</ul>
+//字体链接
+<!--angelcms{set DataTable txtList=get_link_list(0, "is_image=0")}-->
+<!--angelcms{loop list2 txtList}-->
+{list2[site_url]}            链接地址
+{list2[title]}               链接文字   
+<!--angelcms{/loop}-->
+
+

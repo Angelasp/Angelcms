@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>妻子患脑萎缩丈夫“奇招”练记忆 网友追捧祝福 - 国内新闻 - Angel工作室内容管理系统</title>
+<meta content="妻子患脑萎缩丈夫“奇招”练记忆 网友追捧祝福-powered by angelasp.com" name="keywords" />
+<meta content="妻子患脑萎缩丈夫“奇招”练记忆 网友追捧祝福-powered by angelasp.com" name="description" />
+<link rel="stylesheet" type="text/css" href="/templates/Default/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/templates/Default/css/style.css" />
+<script type="text/javascript" src="/scripts/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/scripts/lhgdialog/lhgdialog.js?skin=idialog"></script>
+<script type="text/javascript" src="/templates/Default/js/base.js"></script>
+</head>
+<body >
+<!--顶部-->
+<!--Header-->
+<!--顶部-->
+<div id="doc">
+	<div id="hd">
+
+		<div class="clearfix pagetitle">
+			<h1 class="sitename"><a href="http://www.angelasp.com" title="Angel工作室内容管理系统"><img  class="ifixpng" src="/upload/201408/18/201408181404280972.png"  alt="Angel工作室内容管理系统" /></a></h1>
+<div class="language"> 
+<ul id="menu" class="menu">
+      <li><a href="/shopping/cart.html">购物车<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_cart_count"></script>件</a></li>
+ </ul>	
+ <div class="clear"></div>
+<div class="search clearfix">
+      <input id="keywords" name="keywords" class="enter" type="text" x-webkit-speech="" autofocus="" placeholder="输入回车搜索" onkeydown="if(event.keyCode==13){SiteSearch('/search.html', '#keywords');return false};" />
+      <input class="btn" type="button" value="   " onclick="SiteSearch('/search.html', '#keywords');" />
+    <script type="text/javascript">
+        $.ajax({
+            type: "get",
+            url: "/tools/submit_ajax.ashx?action=user_check_login",
+            cache: false,
+            success: function (data) {
+			  var result = $.parseJSON(data);
+                if (result.status == 1) {
+                    $("#menu").append('<li><a href="/user/center/exit.html">退出</a></li>');
+                    $("#menu").append('<li><a href="/user/center/index.html">会员中心</a></li>');
+                } else {
+                    $("#menu").append('<li><a href="/register.html">注册</a></li>');
+                    $("#menu").append('<li><a href="/login.html">登录</a></li>');
+                }
+            }
+        });
+    </script>
+	</div>	
+	
+		</div>
+		</div>
+
+		<div class="clearfix sitenav">
+			<div class="clearfix menu-main">
+<ul id="menuSitenav" class="clearfix">
+      <li class="first-item"><a href="/index.html" class="home">网站首页</a></li>
+      <li><a target="_blank" href="/about.html" target="_self">关于我们</a></li>
+      <li><a href="/news.html" target="_self">新闻资讯</a></li>
+      <li><a href="/products.html" target="_self">公司产品</a></li>
+      <li><a href="/photo.html" target="_self">图片分享</a></li>
+      <li><a href="/down.html" target="_self">资源下载</a></li>
+      <li><a target="_self" href="/feedback.html">留言反馈</a></li>
+      <li><a target="_self" href="/contact.html">联系我们</a></li>
+                </ul>
+				</div>	
+		</div>
+
+
+
+
+	</div>      
+</div>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#banner-inner").width(); //获取焦点图的宽度（显示面积）
+	var len = $("#banner-inner ul li").length; //获取焦点图个数
+	var index = 0;
+	var picTimer;
+
+	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$("#banner-inner").append(btn);
+	$("#banner-inner .btnBg").css("opacity",0.5);
+
+	//为小按钮添加鼠标滑入事件，以显示相应的内容
+	$("#banner-inner .btn span").css("opacity",0.4).mouseover(function() {
+		index = $("#banner-inner .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseover");
+
+	//上一页、下一页按钮透明度处理
+	$("#banner-inner .preNext").css("opacity",0.2).hover(function() {
+		$(this).stop(true,false).animate({"opacity":"0.5"},300);
+	},function() {
+		$(this).stop(true,false).animate({"opacity":"0.2"},300);
+	});
+
+	//上一页按钮
+	$("#banner-inner .pre").click(function() {
+		index -= 1;
+		if(index == -1) {index = len - 1;}
+		showPics(index);
+	});
+
+	//下一页按钮
+	$("#banner-inner .next").click(function() {
+		index += 1;
+		if(index == len) {index = 0;}
+		showPics(index);
+	});
+
+	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+	$("#banner-inner ul").css("width",sWidth * (len));
+	
+	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+	$("#banner-inner").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000); //此4000代表自动播放的间隔，单位：毫秒
+	}).trigger("mouseleave");
+	
+	//显示图片函数，根据接收的index值显示相应的内容
+	function showPics(index) { //普通切换
+		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+		$("#banner-inner ul").stop(true,false).animate({"left":nowLeft},300); //通过animate()调整ul元素滚动到计算出的position
+		//$("#banner-inner .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
+		$("#banner-inner .btn span").stop(true,false).animate({"opacity":"0.4"},300).eq(index).stop(true,false).animate({"opacity":"1"},300); //为当前的按钮切换到选中的效果
+	}
+});
+</script>
+
+<!--banner--> 
+<div id="banner-block">
+	<div class="banner-block-width">
+	<div id="sys-banner">
+	<div id="banner-main" class="banner banner-main">
+   <!--banner start-->
+		<div id="banner-inner">
+			<ul>
+          
+				<li>
+	          <a title="Angel工作室asp.net门锁企业网站管理系统" target="_blank" href="/news/show-25.html"><img src="/upload/201409/07/201409071449241400.jpg" alt="Angel工作室asp.net门锁企业网站管理系统" /></a>			
+				</li>
+        
+				<li>
+	          <a title="国防部网站推出女仪仗兵图辑(高清)" target="_blank" href="/news/show-23.html"><img src="/upload/201409/07/201409071513341123.jpg" alt="国防部网站推出女仪仗兵图辑(高清)" /></a>			
+				</li>
+        
+			</ul>
+		</div><!--banner end-->
+	</div>
+    </div>
+	</div>
+</div>
+<!--end banner-->
+<!--/Header-->
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="innerpg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-innerpg ">
+
+		<div class="col-main">
+		<div class="main-wrap">
+
+			<div id='article-view' class="block first-block block-article-view">
+				<div class="block-head">
+			<div class="head-inner" style="width:auto;background:url('/templates/Default/images/detail_nav.gif')">
+         <h2 class="title" style="color:#ffffff">当前位置：<a href="/index.html" style="color:#ffffff">首页 </a>&gt;&gt;<a href="/news.html" style="color:#ffffff">新闻资讯</a></h2>		
+					</div>
+				</div>
+
+				<div class="block-content clearfix">
+					<div class="article-head">
+						<h1 class="title">妻子患脑萎缩丈夫“奇招”练记忆 网友追捧祝福</h1>
+						<div class="meta">
+							<span class="item">分类：国内新闻</span>
+							<span class="item">评论：<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_comment_count&id=9"></script>人评论</span>
+							<span class="item">点击：<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_article_click&id=9&click=1"></script>次浏览</span>
+							<span class="item">发布：<span class="grey">2014/8/29 14:04:38</span></span>
+						</div>
+					</div>
+					<div class="article-content clearfix" style="padding-top:20px;">
+				     <strong>天津北方网讯：</strong>“因为爱情怎么会有沧桑，所以我们还是年轻的模样……”这首《因为爱情》曾被无数人翻唱，最近又因为一对七旬老夫妻的演唱而受到关注。这对老夫妻来自天津，七年间由他们自己制作的演唱视频已有100多个，播放量超千万，而在这些视频背后，则是一段感人的故事。<!--advertisement code begin--><!--none--><!--advertisement code end-->
+<p>
+	<strong>七旬老人做MTV</strong> 
+</p>
+<p>
+	<strong> 播放次数上千万</strong> 
+</p>
+<p>
+	王奇文、张彦君是这对夫妻的名字，他们用“奇文”“张工”这两个网名，在网络上发布了100多个演唱视频作品。这些视频都是由王奇文老人制作完成，演唱人以老伴张彦君为主，也有一些两人的对唱，类型上既有老年人喜欢的戏曲选段《贵妃醉酒》《智取威虎山》，也有时下流行的《因为爱情》和《菊花台》等歌曲。
+</p>
+<p>
+	这些视频的图像，几乎都是以天津风景和老两口的照片为主，歌词采取了KTV中滚动变色的形式，虽然看上去较为简单，但由于完全出自一位七旬老人之手，还是赢得了不少网友的追捧。目前，他们的视频播放数达到了1600万，网页访问量也已经有44000次。
+</p>
+<p>
+	<strong> 老伴突患脑萎缩</strong> 
+</p>
+<p>
+	<strong> 想用唱歌练记忆</strong> 
+</p>
+<p>
+	搜索这些视频便会发现，最早的一个视频制作于2007年。就在这一年，已经65岁、之前只会用电脑看照片的王奇文老人学会了视频制作。而他学习的动因，则是因为老伴的病情。
+</p>
+<p>
+	2007年，张彦君被查出患上了脑萎缩，记忆力变得越来越差，有时就连前一天吃什么饭都回忆不起来。为了能让老伴锻炼记忆力，王奇文想到了老伴的最大爱好——唱歌。“她嗓子好，唱歌也一直是她最大的爱好，是最能吸引她注意力的事了。”
+</p>
+<p>
+	但如果只是单纯的学唱新歌，又很容易让有些“孩子气”的老伴产生疲劳和厌烦。于是，王奇文老人又想出了一个办法，在老伴学成之后，他将老伴的演唱制作成视频传到网上永久保存。这样既有声音，又有图像，还能看到网友的评价，对于老伴来说，每一个视频都成了一份精心制作的礼物。“当初我们约定，这份礼物一直要送到她完全记不住歌词为止。”王奇文老人说道。
+</p>
+<p>
+	<strong> 记忆力越来越差</strong> 
+</p>
+<p>
+	<strong> 仍坚持履行约定</strong> 
+</p>
+<p>
+	采访时，王奇文老人翻看七年来的演唱视频，老伴张彦君在一边看着电视，时不时转过头来和他说上两句，但经常会重复同样的话。
+</p>
+<p>
+	“十分钟之前说过的，转眼就不记得了，然后再说一遍。现在她认识的人，也只有我和闺女了。”听着老伴不断重复的话，王奇文老人跟记者解释道，“现在她学一首歌也特别困难。之前她听几遍就能跟着唱，现在完整学唱一首歌要用一个月。”
+</p>
+<p>
+	虽然老伴的病情越来越严重，但王奇文老人从未放弃，他经常会将一首歌曲当做背景音乐，在家里循环播放，让老伴加深印象，直到能记下歌词和旋律。因为老伴记忆力越来越差，对他的依赖也就越来越大，每天必须寸步不离地跟着。所以，老人只能利用带老伴遛弯的时间拍风景，又趁着老伴休息的时间做视频，继续履行着当初的约定，就像他们在《最浪漫的事》中唱的，“哪怕用一辈子才能完成，只要我讲你就记住不忘”。
+</p>
+				     </div>
+					<div class="pages2"></div>
+				</div>
+				<div class="block-foot"><div><div>-</div></div></div>
+			</div>
+
+      <!--评论-->
+       
+	  <div id="block-comments" class="block block-comments" rel="articles">
+				<div class="block-head">
+					<div class="head-inner">
+						<h2 class="title">评论</h2>
+					</div>
+				</div>
+
+	 <div class="block-content clearfix">
+	  <!--取得评论总数-->
+      <link rel="stylesheet" href="/css/validate.css" />
+      <link rel="stylesheet" href="/css/pagination.css" />
+      <script type="text/javascript" src="/scripts/jquery/jquery.form.min.js"></script>
+      <script type="text/javascript" src="/scripts/jquery/Validform_v5.3.2_min.js"></script>
+      <script type="text/javascript" src="/scripts/lhgdialog/lhgdialog.js?skin=idialog"></script>
+      <script type="text/javascript" src="/scripts/jquery/jquery.pagination.js"></script>
+      <script type="text/javascript">
+        $(function(){
+          //初始化评论列表
+          AjaxPageList('#comment_list', '#pagination', 10, 0, '/tools/submit_ajax.ashx?action=comment_list&article_id=9', '/templates/Default/images/user_avatar.png');
+          //初始化发表评论表单
+          AjaxInitForm('comment_form', 'btnSubmit', 1);
+        });
+      </script>
+      <div class="comment_box">
+        <h3 class="base_tit"><span><a href="#Add">发表评论</a></span>共有0访客发表了评论</h3>
+        <ol id="comment_list" class="commentslist clearfix">
+          <p style="line-height:35px;">暂无评论，快来抢沙发吧！</p>
+        </ol>
+      </div>
+      <div class="line20"></div>
+      <div id="pagination" class="flickr"></div><!--放置页码-->
+      <div class="comment_add">
+        <h3 class="base_tit">我来说几句吧<a name="Add"></a></h3>
+        <form id="comment_form" name="comment_form" url="/tools/submit_ajax.ashx?action=comment_add&article_id=9">
+        <div class="comment_editor">
+          <textarea id="txtContent" name="txtContent" class="input" style="width:658px;height:70px;" datatype="*" sucmsg=" "></textarea>
+        </div>
+        <div class="subcon">
+          <input id="btnSubmit" name="submit" class="btn right" type="submit" value="提交评论（Ctrl+Enter）" />
+          <span>验证码：</span>
+          <input id="txtCode" name="txtCode" type="text" class="input small" datatype="s4-4" errormsg="请填写4位验证码" sucmsg=" " onkeydown="if(event.ctrlKey&&event.keyCode==13){document.getElementById('btnSubmit').click();return false};"  />
+          <a href="javascript:;" onclick="ToggleCode(this, '/tools/verify_code.ashx');return false;"><img src="/tools/verify_code.ashx" width="80" height="22" style="vertical-align:middle;" /> 看不清楚？</a>
+        </div>
+        </form>
+      </div>
+
+	</div>
+<div class="block-foot"><div><div>-</div></div></div>
+</div>
+
+      <!--/评论-->
+
+			
+			</div>
+		</div>
+
+
+		<div class="col-sub">
+			<div class="block first-block block-products  list-240" id="block-products-89305" rel="89305">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">资讯分类</h2><div class="links"><a class="more" href="/products">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">								
+        
+        <li>
+          <h4><a href="/news/12.html">军事新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/news/11.html">国际新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/news/10.html">公司新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/news/9.html">国内新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        								
+				</ul>   
+				</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block last-block block-articles  list-240" id="block-articles-89306" rel="89306">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">推荐文章</h2><div class="links"><a class="more" href="/articles">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+ 
+        <li><a title="Angel工作室asp.net门锁企业网站管理系统" href="/news/show-25.html">Angel工作室asp.net门锁企业网站管…</a></li>
+        
+        <li><a title="国防部网站推出女仪仗兵图辑(高清)" href="/news/show-23.html">国防部网站推出女仪仗兵图辑(高清…</a></li>
+        
+        <li><a title="俄防长乘专机回国途中 被禁飞波兰和乌克兰领空" href="/news/show-22.html">俄防长乘专机回国途中 被禁飞波兰…</a></li>
+        
+        <li><a title="美军在伊拉克对IS军事行动平均每天花费750万美元" href="/news/show-21.html">美军在伊拉克对IS军事行动平均每天…</a></li>
+        
+        <li><a title="四川:党员干部去世后不得在公共场所搭灵棚" href="/news/show-20.html">四川:党员干部去世后不得在公共场…</a></li>
+        
+        <li><a title="哈尔滨抓获公安部A级逃犯 涉虚开增值税发票18亿" href="/news/show-19.html">哈尔滨抓获公安部A级逃犯 涉虚开增…</a></li>
+        
+        <li><a title="辽宁18人传播“采暖费调整”谣言被查处" href="/news/show-18.html">辽宁18人传播“采暖费调整”谣言被…</a></li>
+        
+        <li><a title="车考腐败黑洞:关关卡拿 小小驾照撂倒车管所20人" href="/news/show-17.html">车考腐败黑洞:关关卡拿 小小驾照撂…</a></li>
+        
+        <li><a title=""昆明小女孩被拐走"为谣言 已在全国流传3个月" href="/news/show-16.html">&quot;昆明小女孩被拐走&quot;为谣…</a></li>
+        
+        <li><a title="云南文山州富宁县公安局警务站处置一起暴力袭警案" href="/news/show-15.html">云南文山州富宁县公安局警务站处置…</a></li>
+        
+          </ul> 
+		  </div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div>		</div></div>
+	</div>
+	</div>
+</div>
+</div>
+
+<!--Footer-->
+<!--底部-->
+<div id="ft">
+	<div class="ft-inner">
+	<div class="ft-menu"  id="ft-menu">
+      <a target="_blank" href="/index.html">网站首页</a>|
+      <a target="_blank" href="/about.html">关于我们</a>|
+      <a target="_blank" href="/news.html">新闻资讯</a>|
+      <a target="_blank" href="/products.html">公司产品</a>|
+      <a target="_blank" href="/down.html">资源下载</a>|
+      <a target="_blank" href="/photo.html">图片分享</a>|
+      <a target="_blank" href="/feedback.html">留言反馈</a>|
+      <a target="_blank" href="/link.html">友情链接</a>|
+      <a target="_blank" href="/contact.html">联系我们</a>
+	</div>
+
+<div class="siteinfo" id="ft-siteinfo">
+  <p>版权所有 Angel工作室 京ICP备备01068681号 版本：V1.0 © Copyright 2009 - 2014. angelasp.com. All Rights Reserved.&nbsp; </p>
+</div>
+
+</div>
+</div>
+<!--/Footer-->
+</body>
+</html>
+

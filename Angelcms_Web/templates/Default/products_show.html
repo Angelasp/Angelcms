@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--angelcms{set string category_title=get_category_title(model.category_id,"产品介绍")}-->
+<title>{model.title} - {category_title} - {config.webname}</title>
+<meta content="{model.seo_keywords}-powered by angelasp.com" name="keywords" />
+<meta content="{model.seo_description}-powered by angelasp.com" name="description" />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="<!--angelcms{templateskin}-->/css/style.css" />
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/lang-chi.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/common.min.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/overlay.min.js"></script>
+
+<script type="text/javascript" src="{config.webpath}scripts/jquery/jquery.jqzoom.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/base.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/picture.js"></script>
+<script type="text/javascript" src="<!--angelcms{templateskin}-->/js/cart.js"></script>
+<script type="text/javascript">
+	$(function(){
+		tabs('#productsTabs','click');
+		//智能浮动层
+		$("#tab_head").smartFloat();
+	});
+</script>
+
+</head>
+<body >
+<!--顶部-->
+<!--Header-->
+<!--angelcms{template src="header.html"}-->
+<!--/Header-->
+
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="innerpg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-innerpg ">	<div class="col-main">
+		<div class="main-wrap">
+						<div id='articles-list' class="block first-block">
+				<div class="block-head">
+			<div class="head-inner" style="width:auto;background:url('<!--angelcms{templateskin}-->/images/detail_nav.gif')">
+			<!--angelcms{set string category_nav=get_category_menu("products_list", model.category_id)}-->
+         <h2 class="title" style="color:#ffffff">当前位置：<a href="<!--angelcms{linkurl("index","")}-->">首页 </a>&gt;<a href="<!--angelcms{linkurl("products","")}-->">购买产品</a>{category_nav}</h2>
+					</div>
+				</div>
+<div class="block-content clearfix">
+
+   <!--product deatail-->
+      <!--商品图片-->
+      <div class="left294">
+        <!--幻灯片开始-->
+        <div class="pictureDIV">
+          <div id="preview" class="spec-preview">
+            <span class="jqzoom"><img /></span>
+          </div>
+          <!--缩图开始-->
+          <div class="spec-scroll">
+            <a class="prev">&lt;</a>
+            <a class="next">&gt;</a>
+            <div class="items">
+              <ul>
+                <!--angelcms{if(model.albums!=null)}-->
+                <!--angelcms{foreach(Angelcms.Model.Age_article_albums modelt in model.albums)}-->
+                <li><img bimg="{modelt.original_path}" src="{modelt.thumb_path}" onmousemove="preview(this);" /></li>
+                <!--angelcms{/foreach}-->
+                <!--angelcms{/if}-->
+              </ul>
+            </div>
+          </div>
+          <!--缩图结束-->
+        </div>
+        <!--幻灯片结束-->
+      </div>
+       <!--/商品图片-->
+      
+      <!--商品属性-->
+      <div class="pro-attr right356">
+        <h1>{model.title}</h1>
+        <div class="pro-items">
+          <dl>
+            <dt>商品货号：</dt>
+            <dd>{model.fields[goods_no]}</dd>
+          </dl>
+          <dl>
+            <dt>库存情况：</dt>
+            <dd>{model.fields[stock_quantity]}件</dd>
+          </dl>
+          <dl>
+            <dt>销售价格：</dt>
+            <dd><b class="red">￥{model.fields[sell_price]}</b></dd>
+          </dl>
+          <dl>
+            <dt>会员价格：</dt>
+            <dd>
+              <!--angelcms{set decimal user_price=get_user_article_price(model.id)}-->
+              <!--angelcms{if(user_price>-1)}-->
+              <b class="red">￥{user_price}</b>
+              <!--angelcms{else}-->
+              登录可见
+              <!--angelcms{/if}-->
+            </dd>
+          </dl>
+          <dl>
+            <dt>上架时间：</dt>
+            <dd>{model.add_time}</dd>
+          </dl>
+        </div>
+        <div class="pro-btns">
+		  <div class="input-box">
+              购买数量：<input name="goods_id" id="goods_id" type="hidden" value="{model.id}" /><input type="text" name="goods_quantity" id="goods_quantity" value="1" class="txt" style="ime-mode:disabled" />
+          </div>
+          <div class="btn-box">
+            <!--angelcms{if({strtoint({model.fields[stock_quantity]})}>0)}-->
+            <a href="javascript:void(0);" class="add" onclick="CartAdd(this, '{config.webpath}', 0, '<!--angelcms{linkurl("shopping","cart")}-->');">加入购物车</a>
+            <a href="javascript:void(0);" class="buy" onclick="CartAdd(this, '{config.webpath}', 1, '<!--angelcms{linkurl("shopping","confirm")}-->');">立即购买</a>
+            <!--angelcms{else}-->
+            <a title="该商品供货紧张，无法加入购物车" class="add-over">加入购物车</a>
+            <a title="该商品供货紧张，无法立即购买" class="buy-over">立即购买</a>
+            <!--angelcms{/if}-->
+          </div>
+          
+        </div>
+        <div class="line10"></div>
+      </div>
+      <!--/商品属性-->
+      
+      <div class="line20"></div>
+      <!--商品介绍-->
+      <div id="productsTabs">
+        <div id="tab_head" class="pro-tabs">
+          <ul>
+            <li><a class="current" href="javascript:;">商品介绍</a></li>
+            <li><a href="javascript:;">商品评论</a></li>
+          </ul>
+        </div>
+        <div class="line10"></div>
+        <div class="tab_inner entry" style="display:block;">
+          {model.content}
+          <div class="line10"></div>
+        </div>
+
+        <div class="tab_inner">
+          <!--评论-->
+          <!--angelcms{if(model.is_msg==1)}-->
+          <!--angelcms{template src="comment_box.html"}-->
+          <!--angelcms{/if}-->
+          <!--/评论-->
+        </div>
+        
+      </div>
+      <!--/商品介绍-->
+      
+      <!--同类推荐-->
+      <div class="related">
+        <h3 class="base_tit">本类推荐</h3>
+        <ul class="img_list">
+          <!--angelcms{set DataTable products_list=get_article_list("products", 0, 10, "is_red=1 and id<>" + model.id)}-->
+          <!--angelcms{foreach(DataRow dr in products_list.Rows)}-->
+          <li><a title="{dr[title]}" href="<!--angelcms{linkurl("products_show",{dr[id]})}-->"><img alt="{dr[title]}" src="{dr[img_url]}"><span><!--angelcms{cutstring({dr[title]},26)}--></span></a></li>
+           <!--angelcms{/foreach}-->
+        </ul>
+      </div>
+      <!--/同类推荐-->
+    <!--/product deatail-->
+	  </div>
+
+			<div class="block-foot"><div><div>-</div></div></div>
+			</div>
+			
+		</div>
+		</div>
+		<div class="col-sub">
+			<div class="block first-block block-products  list-240" id="block-products-89305" rel="89305">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">产品分类</h2><div class="links"><a class="more" href="<!--angelcms{linkurl("products")}-->">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">								
+        <!--angelcms{set DataTable category_list2=get_category_child_list("products", 0)}-->
+        <!--angelcms{loop cdr2 category_list2}-->
+        <li>
+          <h4><a href="<!--angelcms{linkurl("products_list",{cdr2[id]})}-->">{cdr2[title]}</a></h4>
+          <div class="list">
+            <!--angelcms{set DataTable category_list21=get_category_child_list("products", {strtoint({cdr2[id]})})}-->
+            <!--angelcms{loop cdr21 category_list21}-->
+            <a href="<!--angelcms{linkurl("products_list",{cdr21[id]})}-->">{cdr21[title]}</a>
+            <!--angelcms{/loop}-->
+          </div>
+        </li>
+        <!--angelcms{/loop}-->									
+				</ul>   
+				</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block last-block block-articles  list-240" id="block-articles-89306" rel="89306">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">推荐文章</h2><div class="links"><a class="more" href="/articles">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+ <!--angelcms{set DataTable rednews1=get_article_list("news", 0, 10, "status=0 and is_red=1")}-->
+        <!--angelcms{foreach(DataRow dr in rednews1.Rows)}-->
+        <li><a title="{dr[title]}" href="<!--angelcms{linkurl("news_show",{dr[id]})}-->"><!--angelcms{cutstring({dr[title]},30)}--></a></li>
+        <!--angelcms{/foreach}-->
+          </ul> 
+		  </div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div>		</div></div>
+	</div>
+	</div>
+</div>
+</div>
+
+<!--Footer-->
+<!--angelcms{template src="footer.html"}-->
+<!--/Footer-->
+</body>
+</html>

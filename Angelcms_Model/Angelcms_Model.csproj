@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7A82CDD3-4E1A-4014-BC5D-E395EDC07463}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Angelcms_Model</RootNamespace>
+    <AssemblyName>Angelcms_Model</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Age_article.cs" />
+    <Compile Include="Age_article_albums.cs" />
+    <Compile Include="Age_article_attach.cs" />
+    <Compile Include="Age_article_attribute_field.cs" />
+    <Compile Include="Age_article_attribute_value.cs" />
+    <Compile Include="Age_article_category.cs" />
+    <Compile Include="Age_article_comment.cs" />
+    <Compile Include="Age_article_images_size.cs" />
+    <Compile Include="Age_channel.cs" />
+    <Compile Include="Age_channel_category.cs" />
+    <Compile Include="Age_channel_field.cs" />
+    <Compile Include="Age_express.cs" />
+    <Compile Include="Age_feedback.cs" />
+    <Compile Include="Age_link.cs" />
+    <Compile Include="Age_mail_template.cs" />
+    <Compile Include="Age_manager.cs" />
+    <Compile Include="Age_manager_log.cs" />
+    <Compile Include="Age_manager_role.cs" />
+    <Compile Include="Age_manager_role_value.cs" />
+    <Compile Include="Age_navigation.cs" />
+    <Compile Include="Age_orderconfig.cs" />
+    <Compile Include="Age_orders.cs" />
+    <Compile Include="Age_order_goods.cs" />
+    <Compile Include="Age_payment.cs" />
+    <Compile Include="Age_ShoppingCart.cs" />
+    <Compile Include="Age_siteconfig.cs" />
+    <Compile Include="Age_sms_template.cs" />
+    <Compile Include="Age_template.cs" />
+    <Compile Include="Age_url_rewrite.cs" />
+    <Compile Include="Age_userconfig.cs" />
+    <Compile Include="Age_users.cs" />
+    <Compile Include="Age_user_amount_log.cs" />
+    <Compile Include="Age_user_code.cs" />
+    <Compile Include="Age_user_groups.cs" />
+    <Compile Include="Age_user_group_price.cs" />
+    <Compile Include="Age_user_login_log.cs" />
+    <Compile Include="Age_user_message.cs" />
+    <Compile Include="Age_user_oauth.cs" />
+    <Compile Include="Age_user_oauth_app.cs" />
+    <Compile Include="Age_user_point_log.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SysNode.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

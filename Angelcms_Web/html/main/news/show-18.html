@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>辽宁18人传播“采暖费调整”谣言被查处 - 国内新闻 - Angel工作室内容管理系统</title>
+<meta content="辽宁18人传播“采暖费调整”谣言被查处-powered by angelasp.com" name="keywords" />
+<meta content="辽宁18人传播“采暖费调整”谣言被查处-powered by angelasp.com" name="description" />
+<link rel="stylesheet" type="text/css" href="/templates/Default/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/templates/Default/css/style.css" />
+<script type="text/javascript" src="/scripts/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/scripts/lhgdialog/lhgdialog.js?skin=idialog"></script>
+<script type="text/javascript" src="/templates/Default/js/base.js"></script>
+</head>
+<body >
+<!--顶部-->
+<!--Header-->
+<!--顶部-->
+<div id="doc">
+	<div id="hd">
+
+		<div class="clearfix pagetitle">
+			<h1 class="sitename"><a href="http://www.angelasp.com" title="Angel工作室内容管理系统"><img  class="ifixpng" src="/upload/201408/18/201408181404280972.png"  alt="Angel工作室内容管理系统" /></a></h1>
+<div class="language"> 
+<ul id="menu" class="menu">
+      <li><a href="/shopping/cart.html">购物车<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_cart_count"></script>件</a></li>
+ </ul>	
+ <div class="clear"></div>
+<div class="search clearfix">
+      <input id="keywords" name="keywords" class="enter" type="text" x-webkit-speech="" autofocus="" placeholder="输入回车搜索" onkeydown="if(event.keyCode==13){SiteSearch('/search.html', '#keywords');return false};" />
+      <input class="btn" type="button" value="   " onclick="SiteSearch('/search.html', '#keywords');" />
+    <script type="text/javascript">
+        $.ajax({
+            type: "get",
+            url: "/tools/submit_ajax.ashx?action=user_check_login",
+            cache: false,
+            success: function (data) {
+			  var result = $.parseJSON(data);
+                if (result.status == 1) {
+                    $("#menu").append('<li><a href="/user/center/exit.html">退出</a></li>');
+                    $("#menu").append('<li><a href="/user/center/index.html">会员中心</a></li>');
+                } else {
+                    $("#menu").append('<li><a href="/register.html">注册</a></li>');
+                    $("#menu").append('<li><a href="/login.html">登录</a></li>');
+                }
+            }
+        });
+    </script>
+	</div>	
+	
+		</div>
+		</div>
+
+		<div class="clearfix sitenav">
+			<div class="clearfix menu-main">
+<ul id="menuSitenav" class="clearfix">
+      <li class="first-item"><a href="/index.html" class="home">网站首页</a></li>
+      <li><a target="_blank" href="/about.html" target="_self">关于我们</a></li>
+      <li><a href="/news.html" target="_self">新闻资讯</a></li>
+      <li><a href="/products.html" target="_self">公司产品</a></li>
+      <li><a href="/photo.html" target="_self">图片分享</a></li>
+      <li><a href="/down.html" target="_self">资源下载</a></li>
+      <li><a target="_self" href="/feedback.html">留言反馈</a></li>
+      <li><a target="_self" href="/contact.html">联系我们</a></li>
+                </ul>
+				</div>	
+		</div>
+
+
+
+
+	</div>      
+</div>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#banner-inner").width(); //获取焦点图的宽度（显示面积）
+	var len = $("#banner-inner ul li").length; //获取焦点图个数
+	var index = 0;
+	var picTimer;
+
+	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$("#banner-inner").append(btn);
+	$("#banner-inner .btnBg").css("opacity",0.5);
+
+	//为小按钮添加鼠标滑入事件，以显示相应的内容
+	$("#banner-inner .btn span").css("opacity",0.4).mouseover(function() {
+		index = $("#banner-inner .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseover");
+
+	//上一页、下一页按钮透明度处理
+	$("#banner-inner .preNext").css("opacity",0.2).hover(function() {
+		$(this).stop(true,false).animate({"opacity":"0.5"},300);
+	},function() {
+		$(this).stop(true,false).animate({"opacity":"0.2"},300);
+	});
+
+	//上一页按钮
+	$("#banner-inner .pre").click(function() {
+		index -= 1;
+		if(index == -1) {index = len - 1;}
+		showPics(index);
+	});
+
+	//下一页按钮
+	$("#banner-inner .next").click(function() {
+		index += 1;
+		if(index == len) {index = 0;}
+		showPics(index);
+	});
+
+	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+	$("#banner-inner ul").css("width",sWidth * (len));
+	
+	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+	$("#banner-inner").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000); //此4000代表自动播放的间隔，单位：毫秒
+	}).trigger("mouseleave");
+	
+	//显示图片函数，根据接收的index值显示相应的内容
+	function showPics(index) { //普通切换
+		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+		$("#banner-inner ul").stop(true,false).animate({"left":nowLeft},300); //通过animate()调整ul元素滚动到计算出的position
+		//$("#banner-inner .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
+		$("#banner-inner .btn span").stop(true,false).animate({"opacity":"0.4"},300).eq(index).stop(true,false).animate({"opacity":"1"},300); //为当前的按钮切换到选中的效果
+	}
+});
+</script>
+
+<!--banner--> 
+<div id="banner-block">
+	<div class="banner-block-width">
+	<div id="sys-banner">
+	<div id="banner-main" class="banner banner-main">
+   <!--banner start-->
+		<div id="banner-inner">
+			<ul>
+          
+				<li>
+	          <a title="Angel工作室asp.net门锁企业网站管理系统" target="_blank" href="/news/show-25.html"><img src="/upload/201409/07/201409071449241400.jpg" alt="Angel工作室asp.net门锁企业网站管理系统" /></a>			
+				</li>
+        
+				<li>
+	          <a title="国防部网站推出女仪仗兵图辑(高清)" target="_blank" href="/news/show-23.html"><img src="/upload/201409/07/201409071513341123.jpg" alt="国防部网站推出女仪仗兵图辑(高清)" /></a>			
+				</li>
+        
+			</ul>
+		</div><!--banner end-->
+	</div>
+    </div>
+	</div>
+</div>
+<!--end banner-->
+<!--/Header-->
+<!--中间区块-->
+<div id="content-block">
+<div class="content-block-width">
+	<div id="bd">
+	<div id="innerpg" class="bd-inner">
+    <!--检查这里是否为一样-->
+	<div class="clearfix layout-innerpg ">
+
+		<div class="col-main">
+		<div class="main-wrap">
+
+			<div id='article-view' class="block first-block block-article-view">
+				<div class="block-head">
+			<div class="head-inner" style="width:auto;background:url('/templates/Default/images/detail_nav.gif')">
+         <h2 class="title" style="color:#ffffff">当前位置：<a href="/index.html" style="color:#ffffff">首页 </a>&gt;&gt;<a href="/news.html" style="color:#ffffff">新闻资讯</a></h2>		
+					</div>
+				</div>
+
+				<div class="block-content clearfix">
+					<div class="article-head">
+						<h1 class="title">辽宁18人传播“采暖费调整”谣言被查处</h1>
+						<div class="meta">
+							<span class="item">分类：国内新闻</span>
+							<span class="item">评论：<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_comment_count&id=18"></script>人评论</span>
+							<span class="item">点击：<script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_article_click&id=18&click=1"></script>次浏览</span>
+							<span class="item">发布：<span class="grey">2014/8/31 22:08:19</span></span>
+						</div>
+					</div>
+					<div class="article-content clearfix" style="padding-top:20px;">
+				     <p>
+	据央广报道几天前，一条关于辽宁将下调采暖费的消息在网上广泛传播，辽宁省公安厅认定该消息为谣言，并对18人因传播“采暖费调整”谣言进行了查处。
+</p>
+<p>
+	从8月26日开始，辽宁公安机关网络监管部门就发现在互联网上出现了有关“省政府下发文件调整2014至2015年度采暖费”的信息，该条信息称“好消息应该转发！辽宁省人民政府下发2014-08223号文件，文件称2014至2015年度采暖费调整！每平米由25元调整为19元！取暖期为10月25号到3月25号！为防止个别供热公司乱收费，请互相转发。”
+</p>
+<p>
+	当地有不少网友进行了多次转发，只有少数的网友加上了“求证”的字样，也有网友警醒提出了“文号很奇怪”，以及“采暖费问题不是应该由物价部门来决定吗？”的疑问。对于网上的这条信息，沈阳市房产局以及各区的供热办均表示否认，表示没有接到类似的通知，沈阳多家供热公司也表示没有接到降价的通知。
+</p>
+<p>
+	&nbsp;该谣言信息在微博、百度贴吧以及互联网即时通讯工具中被大范围传播，为了维护正常的社会秩序，辽宁省公安厅立即组织沈阳、大连、本溪、营口等地的公安机关开展调查工作。经查，大连网民徐某于26日上午在腾讯微博中发布了该谣言信息。8月27日，公安机关依法传唤了网民徐某。经讯问，徐某对网上散布谣言的事实供认不讳。对此，属地公安机关依法对徐某进行了行政拘留的处罚。与此同时，为了遏制谣言信息进一步传播扩散，公安机关对网上转发谣言信息的人员全面开展调查，现已依法查处相关人员17人，其中罚款3人，教育训诫14人。
+</p>
+				     </div>
+					<div class="pages2"></div>
+				</div>
+				<div class="block-foot"><div><div>-</div></div></div>
+			</div>
+
+      <!--评论-->
+      
+      <!--/评论-->
+
+			
+			</div>
+		</div>
+
+
+		<div class="col-sub">
+			<div class="block first-block block-products  list-240" id="block-products-89305" rel="89305">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">资讯分类</h2><div class="links"><a class="more" href="/products">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">								
+        
+        <li>
+          <h4><a href="/news/12.html">军事新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/news/11.html">国际新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/news/10.html">公司新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        
+        <li>
+          <h4><a href="/news/9.html">国内新闻</a></h4>
+          <div class="list">
+            
+          </div>
+        </li>
+        								
+				</ul>   
+				</div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div><div class="block last-block block-articles  list-240" id="block-articles-89306" rel="89306">    <div class="block-head">    <div class="head-inner">
+	    	<h2 class="title">推荐文章</h2><div class="links"><a class="more" href="/articles">更多</a></div>    </div>
+    </div>    <div class="block-content clearfix">
+    	<div class="item-list">
+	    <ul class="clearfix">
+ 
+        <li><a title="Angel工作室asp.net门锁企业网站管理系统" href="/news/show-25.html">Angel工作室asp.net门锁企业网站管…</a></li>
+        
+        <li><a title="国防部网站推出女仪仗兵图辑(高清)" href="/news/show-23.html">国防部网站推出女仪仗兵图辑(高清…</a></li>
+        
+        <li><a title="俄防长乘专机回国途中 被禁飞波兰和乌克兰领空" href="/news/show-22.html">俄防长乘专机回国途中 被禁飞波兰…</a></li>
+        
+        <li><a title="美军在伊拉克对IS军事行动平均每天花费750万美元" href="/news/show-21.html">美军在伊拉克对IS军事行动平均每天…</a></li>
+        
+        <li><a title="四川:党员干部去世后不得在公共场所搭灵棚" href="/news/show-20.html">四川:党员干部去世后不得在公共场…</a></li>
+        
+        <li><a title="哈尔滨抓获公安部A级逃犯 涉虚开增值税发票18亿" href="/news/show-19.html">哈尔滨抓获公安部A级逃犯 涉虚开增…</a></li>
+        
+        <li><a title="辽宁18人传播“采暖费调整”谣言被查处" href="/news/show-18.html">辽宁18人传播“采暖费调整”谣言被…</a></li>
+        
+        <li><a title="车考腐败黑洞:关关卡拿 小小驾照撂倒车管所20人" href="/news/show-17.html">车考腐败黑洞:关关卡拿 小小驾照撂…</a></li>
+        
+        <li><a title=""昆明小女孩被拐走"为谣言 已在全国流传3个月" href="/news/show-16.html">&quot;昆明小女孩被拐走&quot;为谣…</a></li>
+        
+        <li><a title="云南文山州富宁县公安局警务站处置一起暴力袭警案" href="/news/show-15.html">云南文山州富宁县公安局警务站处置…</a></li>
+        
+          </ul> 
+		  </div>
+    </div>
+    <div class="block-foot"><div><div>-</div></div></div></div>		</div></div>
+	</div>
+	</div>
+</div>
+</div>
+
+<!--Footer-->
+<!--底部-->
+<div id="ft">
+	<div class="ft-inner">
+	<div class="ft-menu"  id="ft-menu">
+      <a target="_blank" href="/index.html">网站首页</a>|
+      <a target="_blank" href="/about.html">关于我们</a>|
+      <a target="_blank" href="/news.html">新闻资讯</a>|
+      <a target="_blank" href="/products.html">公司产品</a>|
+      <a target="_blank" href="/down.html">资源下载</a>|
+      <a target="_blank" href="/photo.html">图片分享</a>|
+      <a target="_blank" href="/feedback.html">留言反馈</a>|
+      <a target="_blank" href="/link.html">友情链接</a>|
+      <a target="_blank" href="/contact.html">联系我们</a>
+	</div>
+
+<div class="siteinfo" id="ft-siteinfo">
+  <p>版权所有 Angel工作室 京ICP备备01068681号 版本：V1.0 © Copyright 2009 - 2014. angelasp.com. All Rights Reserved.&nbsp; </p>
+</div>
+
+</div>
+</div>
+<!--/Footer-->
+</body>
+</html>
+
